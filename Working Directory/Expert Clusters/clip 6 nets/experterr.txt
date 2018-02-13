@@ -1,0 +1,9 @@
+
+Error is 16270.0429026490 for Expert 1
+Error is 27480.8094097380 for Expert 2
+Error is 83865.5438929711 for Expert 3
+Error is 14682.1035400829 for Expert 4
+Error is 22496.0257202533 for Expert 5
+Error is 35196.1248825126 for Expert 6
+Error is 17999.6260350554 for Expert 7
+Error is NaN for Expert 8
