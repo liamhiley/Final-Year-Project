@@ -50,19 +50,7 @@ function [] = GazeGMM(clipno, mix)
         end
         filename = strcat('AnaesExpert', int2str(i), 'VideoGZD.txt');
         data = dlmread(filename,'	',15, 0);
-        data = data(start_ind:end_ind,:);
-        j = 1;
-        for k = 1:size(data,1)
-                        
-            %the aim of the below for loop is to cut the number of frames down to
-            %the number of frames that the background video will show, this way 
-            %record the fixations to be plotted over the video
-            x = mean([data(k,3), data(k,10)]);
-            y = mean([data(k,4), data(k,11)])* ratio_y;
-            if x > 0 && y > 0 && x < 1281 && y < 720
-                X = [X;[x y]];
-            end
-        end
+        X = gzdprocess(filename,start_ind,end_ind);
     end
     
     img = read(video,1);

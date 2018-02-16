@@ -52,36 +52,13 @@ function [] = ClusteringWithElbowMethod(clipno, mix)
     X =[];
     %for each expert, add there average gaze points to the dataset
     for i = 1:8
-%         Uncomment below to leave an expert out, this is for n-fold
-%         cross-validation
-%         if i==7
-%             continue;
-%         end
+%       Uncomment below to leave an expert out, this is for n-fold
+%       cross-validation
+%       if i==7
+%           continue;
+%       end
         filename = strcat('AnaesExpert', int2str(i), 'VideoGZD.txt');
-        data = dlmread(filename,'	',15, 0);
-        data = data(start_ind:end_ind,:);
-        j = 1;
-        
-%       retrieve x values for left and right eyes
-        X_L = data(:,3); X_R = data(:,10);
-%       retrieve y values for left and right eyes/
-        Y_L = data(:,4); Y_R = data(:,11);
-%       retrieve the centre of vision for each pair of eye points
-        X_M = mean([X_L X_R],2);
-        Y_M = mean([Y_L Y_R], 2);
-%       for better visualisation ignore all points that would fall off of
-%       the screen, these will be 'clustered' as a false cluster in a
-%       different function
-        X_M = X_M(720 > Y_M & Y_M > 0);
-        Y_M = Y_M(720 > Y_M & Y_M > 0);
-%       repeat for y values
-        Y_M = Y_M(1281 > X_M & X_M >0);
-        X_M = X_M(1281 > X_M & X_M > 0);
-        
-%       X is the annotation for the data used in the netlab documentation
-%       and in traditional formulae
-%       in this case the mixtures will be 2-dimensional models
-        X = [X; X_M Y_M];
+        X = gzdprocess(filename,start_ind,end_ind);
     end
     
     %an options struct for the mixture model
