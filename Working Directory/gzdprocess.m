@@ -4,6 +4,9 @@ function [X] = gzdprocess(filename,start_ind,end_ind,cut)
 %   start_ind, end_ind - defines the range of frames from within the text
 %   file to process
 %   cut - set to True to trim data that falls outside of the video 
+    if ~exist('cut','var')
+        cut = false;
+    end
 
     data = dlmread(filename,'	',15, 0);
     data = data(start_ind:end_ind,:);
@@ -18,13 +21,13 @@ function [X] = gzdprocess(filename,start_ind,end_ind,cut)
     if cut
         X_M = X_M(720 > Y_M & Y_M > 0);
         Y_M = Y_M(720 > Y_M & Y_M > 0);
+%       repeat for y values
+        Y_M = Y_M(1281 > X_M & X_M >0);
+        X_M = X_M(1281 > X_M & X_M > 0);
     end
-%   repeat for y values
-    Y_M = Y_M(1281 > X_M & X_M >0);
-    X_M = X_M(1281 > X_M & X_M > 0);
 
 %   X is the annotation for the data used in the netlab documentation
 %   and in traditional formulae
 %   in this case the mixtures will be 2-dimensional models
-    X = [X; X_M Y_M];
+    X = [X_M Y_M];
 end

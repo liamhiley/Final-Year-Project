@@ -9,48 +9,54 @@ function [] = fixationsSpentInCluster(clipno)
     figure('units','normalized','outerposition',[0 0 1 1]);
 %   subject can either be Expert, novice, or lay
     hold on;
-    for subject = 1:7
+    
+    %read in the clip to be used
+    video = VideoReader(strcat('EyeTrackingClip', int2str(clipno), '.avi'));
+    
+    data = dlmread('/Users/liam/Projects/Final-Year-Project/Working Directory/Data/AnaesExpert1videoGZD.txt','	',15, 0);
+    
+    for subject = 1:8
 %       read in the gaze data for the subject, in the form
 %       LayXVideoGZD.txt or AnaesExpertXVideoGZD.txt or NoviceXVideoGZD.txt
-        filename = strcat('AnaesExpert', int2str(subject), 'VideoGZD.txt');
+        filename = strcat('/Users/liam/Projects/Final-Year-Project/Working Directory/Data/AnaesExpert', int2str(subject), 'VideoGZD.txt');
 %       timestamps for beginning and ending of each clip within the whole
 %       test video
         start_sec = [30, 49, 69, 89, 109, 129; 42, 63, 83, 103, 123, 137];
-%       read gaze data
-        gzd = dlmread(filename,'	',15, 0);
 
-%       the video has been scaled down so this normalises the y data
-        ratio_y = 720/1024;
 
-        data = [];
-%       extract the gaze data relevant only to this clip
-        for i = 1:size(gzd)
-            timestamp = gzd(i,1)/1000;
-            if timestamp >= start_sec(1,clipno) && timestamp <= start_sec(2,clipno)
-                data = [data; gzd(i,:)];
+        %n is the number of frames for the clip
+        n = round(video.FrameRate * video.Duration);
+
+        %get the range (first and last frame no.) of the clips corresponding
+        %eye frames, clip_no starting sec * average framerate for eye data
+        eye_frame = start_sec(clipno) * (data(end,2)/(data(end,1)/1000));
+        i = floor(eye_frame);
+        %record starting frame
+        j = i;
+
+        %get the index of the last frame in the clip
+        while true
+            %if EOF is reached, break
+            if i > size(data,1)
+                break;
             end
-        end
+            time = data(i,1);
+            %if the time in seconds is greater than the start of the clip in
+            %the test video, + the duration, then this must be the final frame
+            %relevant to the clip
+            if (time / 1000 >= start_sec(clipno)+ video.Duration)
+                break;
+            end
+            i = i + 1;
+        end 
 
-        X = []; 
-
-        time = [];
-        %       retrieve x values for left and right eyes
-        X_L = data(:,3); X_R = data(:,10);
-%       retrieve y values for left and right eyes/
-        Y_L = data(:,4); Y_R = data(:,11);
-%       retrieve the centre of vision for each pair of eye points
-        X_M = mean([X_L X_R],2);
-        Y_M = mean([Y_L Y_R], 2);
-        
-%       X is the annotation for the data used in the netlab documentation
-%       and in traditional formulae
-%       in this case the mixtures will be 2-dimensional models
-        X = [X_M Y_M];
-        time = (data(:,1)/1000) - start_sec(clipno);
+        %we now have the starting and ending index of the eye data
+        start_ind = j;
+        end_ind = i;
+        X = gzdprocess(filename, start_ind, end_ind);
 
         
         n = size(X,1);
-        clusters = [];
         
 %       The following algorithm is the definition for finding saccades in
 %       eye tracking data as stated by O. Le Meur et al. in Overt Visual
@@ -119,6 +125,5 @@ function [] = fixationsSpentInCluster(clipno)
     end
 
     saveas(gcf, strcat('ExpertClip', int2str(clipno),'Saccades','.jpg'));
-    saveas(gcf, strcat('ExpertClip', int2str(clipno),'Saccades','.fig'));
     close(gcf);
 end
