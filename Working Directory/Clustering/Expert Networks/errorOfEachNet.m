@@ -13,7 +13,6 @@ function [] = errorOfEachNet(vid_no)
         y = (video_data(:,4) + video_data(:,11))* 0.7031/2;
         X = [x y];
         error = -sum(log(gmmprob(mix,X)));
-        err = '';
         err = sprintf('Error is %0.10f for Expert %i\n', error, expert);
         str_prob = strcat(str_prob, '\n', err);
     end

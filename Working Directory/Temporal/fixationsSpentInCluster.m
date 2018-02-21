@@ -14,11 +14,9 @@ function [] = fixationsSpentInCluster(clipno)
     video = VideoReader(strcat('EyeTrackingClip', int2str(clipno), '.avi'));
     
     data = dlmread('/Users/liam/Projects/Final-Year-Project/Working Directory/Data/AnaesExpert1videoGZD.txt','	',15, 0);
-    
-    for subject = 1:8
-%       read in the gaze data for the subject, in the form
-%       LayXVideoGZD.txt or AnaesExpertXVideoGZD.txt or NoviceXVideoGZD.txt
-        filename = strcat('/Users/liam/Projects/Final-Year-Project/Working Directory/Data/AnaesExpert', int2str(subject), 'VideoGZD.txt');
+%   UNCOMMENT BELOW WHEN USING RANDOM CLASS
+%   data = load(filename)
+
 %       timestamps for beginning and ending of each clip within the whole
 %       test video
         start_sec = [30, 49, 69, 89, 109, 129; 42, 63, 83, 103, 123, 137];
@@ -53,6 +51,11 @@ function [] = fixationsSpentInCluster(clipno)
         %we now have the starting and ending index of the eye data
         start_ind = j;
         end_ind = i;
+    for subject = 1:8
+%       read in the gaze data for the subject, in the form
+%       LayXVideoGZD.txt or AnaesExpertXVideoGZD.txt or NoviceXVideoGZD.txt
+        filename = strcat('/Users/liam/Projects/Final-Year-Project/Working Directory/Data/AnaesExpert', int2str(subject), 'VideoGZD.txt');
+
         X = gzdprocess(filename, start_ind, end_ind);
 
         
