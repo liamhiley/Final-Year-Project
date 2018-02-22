@@ -1,60 +1,61 @@
-function [] = fixationsSpentInCluster(clipno)
+function [data] = fixationsSpentInCluster(clipno)
 %   Generate discrete histograms for each subject in how often they fit 
 %   into each of the components of the Lay model for that clip
 
-
+    homepath = '/Users/liam/Projects/Final-Year-Project';
 %   get the Expert model for the clip
-    load(strcat('Expert',int2str(clipno),'.net'), 'mix', '-mat');
+    load(strcat('expert',int2str(clipno),'.net'), 'mix', '-mat');
 %   initialise figure
     figure('units','normalized','outerposition',[0 0 1 1]);
 %   subject can either be Expert, novice, or lay
     hold on;
     
     %read in the clip to be used
-    video = VideoReader(strcat('EyeTrackingClip', int2str(clipno), '.avi'));
+    video = VideoReader(strcat(homepath,'/Media/EyeTrackingClip', int2str(clipno), '.mp4'));
     
-    data = dlmread('/Users/liam/Projects/Final-Year-Project/Working Directory/Data/AnaesExpert1videoGZD.txt','	',15, 0);
+    data = dlmread(strcat(homepath,'/Working Directory/Data/Lay1videoGZD.txt'),'	',15, 0);
 %   UNCOMMENT BELOW WHEN USING RANDOM CLASS
 %   data = load(filename)
 
-%       timestamps for beginning and ending of each clip within the whole
-%       test video
-        start_sec = [30, 49, 69, 89, 109, 129; 42, 63, 83, 103, 123, 137];
+%   timestamps for beginning and ending of each clip within the whole
+%   test video
+    start_sec = [30, 49, 69, 89, 109, 129; 42, 63, 83, 103, 123, 137];
 
 
-        %n is the number of frames for the clip
-        n = round(video.FrameRate * video.Duration);
+%    n is the number of frames for the clip
+    n = round(video.FrameRate * video.Duration);
 
-        %get the range (first and last frame no.) of the clips corresponding
-        %eye frames, clip_no starting sec * average framerate for eye data
-        eye_frame = start_sec(clipno) * (data(end,2)/(data(end,1)/1000));
-        i = floor(eye_frame);
-        %record starting frame
-        j = i;
+%    get the range (first and last frame no.) of the clips corresponding
+%    eye frames, clip_no starting sec * average framerate for eye data
+    eye_frame = start_sec(clipno) * (data(end,2)/(data(end,1)/1000));
+    i = floor(eye_frame);
+%    record starting frame
+    j = i;
 
-        %get the index of the last frame in the clip
-        while true
-            %if EOF is reached, break
-            if i > size(data,1)
-                break;
-            end
-            time = data(i,1);
-            %if the time in seconds is greater than the start of the clip in
-            %the test video, + the duration, then this must be the final frame
-            %relevant to the clip
-            if (time / 1000 >= start_sec(clipno)+ video.Duration)
-                break;
-            end
-            i = i + 1;
-        end 
+%    get the index of the last frame in the clip
+    while true
+        %if EOF is reached, break
+        if i > size(data,1)
+            break;
+        end
+        time = data(i,1);
+        %if the time in seconds is greater than the start of the clip in
+        %the test video, + the duration, then this must be the final frame
+        %relevant to the clip
+        if (time / 1000 >= start_sec(clipno)+ video.Duration)
+            break;
+        end
+        i = i + 1;
+    end 
 
-        %we now have the starting and ending index of the eye data
-        start_ind = j;
-        end_ind = i;
+    %we now have the starting and ending index of the eye data
+    start_ind = j;
+    end_ind = i;
+    data = [];
     for subject = 1:8
 %       read in the gaze data for the subject, in the form
 %       LayXVideoGZD.txt or AnaesExpertXVideoGZD.txt or NoviceXVideoGZD.txt
-        filename = strcat('/Users/liam/Projects/Final-Year-Project/Working Directory/Data/AnaesExpert', int2str(subject), 'VideoGZD.txt');
+        filename = strcat(homepath, '/Working Directory/Data/Lay', int2str(subject), 'VideoGZD.txt');
 
         X = gzdprocess(filename, start_ind, end_ind);
 
@@ -122,11 +123,13 @@ function [] = fixationsSpentInCluster(clipno)
         end
         subplot(2,4,subject);
         bar(totalSacc);
+        data = [data; totalSacc];
         xlabel('Cluster');
         ylabel('Total Saccades in Cluster');
-        title(strcat('Expert', int2str(subject)));
+        title(strcat('Lay', int2str(subject)));
     end
 
-    saveas(gcf, strcat('ExpertClip', int2str(clipno),'Saccades','.jpg'));
+    saveas(gcf, strcat('LayClip', int2str(clipno),'Saccades','.jpg'));
+    save(strcat('LayClip', int2str(clipno),'Saccades.mat'),'data');
     close(gcf);
 end

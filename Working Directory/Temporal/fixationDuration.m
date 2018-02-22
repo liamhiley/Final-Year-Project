@@ -3,6 +3,7 @@ function [] = fixationDuration(clipno)
 %   into each of the components of the Expert model for that clip
 
 
+    homepath = '/Users/liam/Projects/Final-Year-Project';
 %   get the Expert model for the clip
     load(strcat('expert',int2str(clipno),'.net'), 'mix', '-mat');
 %   initialise figure
@@ -11,15 +12,15 @@ function [] = fixationDuration(clipno)
     hold on;
     
     %read in the clip to be used
-    video = VideoReader(strcat('EyeTrackingClip', int2str(clipno), '.avi'));
+    video = VideoReader(strcat(homepath,'/Media/EyeTrackingClip', int2str(clipno), '.mp4'));
     
-    data = dlmread('AnaesExpert1videoGZD.txt','	',15, 0);
+    data = dlmread(strcat(homepath,'/Working Directory/Data/Lay1videoGZD.txt'),'	',15, 0);
     
     totalSacc = zeros(1,8);
-    for subject = 1:8
+    for subject = 1:7
 %       read in the gaze data for the subject, in the form
 %       LayXVideoGZD.txt or AnaesExpertXVideoGZD.txt or NoviceXVideoGZD.txt
-        filename = strcat('AnaesExpert', int2str(subject), 'VideoGZD.txt');
+        filename = strcat(homepath,'/Working Directory/Data/Lay', int2str(subject), 'VideoGZD.txt');
 %       timestamps for beginning and ending of each clip within the whole
 %       test video
 
@@ -97,14 +98,15 @@ function [] = fixationDuration(clipno)
         totalSacc(subject) = mean(saccade);
     end
     bar(totalSacc);
-    xlabel('Expert');
+    xlabel('Lay');
     ylabel('Mean Saccade Duration (s)');
     title(strcat('Clip', int2str(clipno)));
     xlim = get(gca,'xlim');
     hold on;
     mnSaccades = mean(totalSacc);
     plot(xlim,[mnSaccades mnSaccades]);
-    saveas(gcf,strcat('ExpertClip',int2str(clipno),'SaccadeDuration.jpg'));
+    save(strcat('LayClip',int2str(clipno),'SaccadeDuration.mat'),'totalSacc');
+    saveas(gcf,strcat('Lay',int2str(clipno),'SaccadeDuration.jpg'));
     close gcf;
 end
 
