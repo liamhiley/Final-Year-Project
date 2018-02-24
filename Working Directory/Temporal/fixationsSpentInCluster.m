@@ -1,4 +1,4 @@
-function [data] = fixationsSpentInCluster(clipno)
+function [data] = fixationsSpentInCluster(clipno,group)
 %   Generate discrete histograms for each subject in how often they fit 
 %   into each of the components of the Lay model for that clip
 
@@ -10,20 +10,21 @@ function [data] = fixationsSpentInCluster(clipno)
 %   subject can either be Expert, novice, or lay
     hold on;
     
+    if strcmp(group,'Lay')
+        n_subjects = 7;
+    else
+        n_subjects = 8;
+    end
     %read in the clip to be used
     video = VideoReader(strcat(homepath,'/Media/EyeTrackingClip', int2str(clipno), '.mp4'));
     
-    data = dlmread(strcat(homepath,'/Working Directory/Data/Lay1videoGZD.txt'),'	',15, 0);
+    data = dlmread(strcat(homepath,'/Working Directory/Data/',group,'1videoGZD.txt'),'	',15, 0);
 %   UNCOMMENT BELOW WHEN USING RANDOM CLASS
 %   data = load(filename)
 
 %   timestamps for beginning and ending of each clip within the whole
 %   test video
     start_sec = [30, 49, 69, 89, 109, 129; 42, 63, 83, 103, 123, 137];
-
-
-%    n is the number of frames for the clip
-    n = round(video.FrameRate * video.Duration);
 
 %    get the range (first and last frame no.) of the clips corresponding
 %    eye frames, clip_no starting sec * average framerate for eye data
@@ -51,11 +52,11 @@ function [data] = fixationsSpentInCluster(clipno)
     %we now have the starting and ending index of the eye data
     start_ind = j;
     end_ind = i;
-    data = [];
-    for subject = 1:8
+    data = zeros(n_subjects,mix.ncentres+1);
+    for subject = 1:n_subjects
 %       read in the gaze data for the subject, in the form
 %       LayXVideoGZD.txt or AnaesExpertXVideoGZD.txt or NoviceXVideoGZD.txt
-        filename = strcat(homepath, '/Working Directory/Data/Lay', int2str(subject), 'VideoGZD.txt');
+        filename = strcat(homepath,'/Working Directory/Data/',group, int2str(subject), 'VideoGZD.txt');
 
         X = gzdprocess(filename, start_ind, end_ind);
 
@@ -117,19 +118,19 @@ function [data] = fixationsSpentInCluster(clipno)
                 end
             end
         end
-        totalSacc = [];
+        totalSacc = zeros(1,mix.ncentres+1);
         for i = 1:mix.ncentres+1
             totalSacc(i) = sum(saccade==i);
         end
         subplot(2,4,subject);
         bar(totalSacc);
-        data = [data; totalSacc];
+        data(subject,:) = totalSacc;
         xlabel('Cluster');
         ylabel('Total Saccades in Cluster');
-        title(strcat('Lay', int2str(subject)));
+        title(strcat(group, int2str(subject)));
     end
 
-    saveas(gcf, strcat('LayClip', int2str(clipno),'Saccades','.jpg'));
-    save(strcat('LayClip', int2str(clipno),'Saccades.mat'),'data');
+    saveas(gcf, strcat(group,'Clip', int2str(clipno),'Saccades','.jpg'));
+    save(strcat(group,'Clip', int2str(clipno),'Saccades.mat'),'data');
     close(gcf);
 end

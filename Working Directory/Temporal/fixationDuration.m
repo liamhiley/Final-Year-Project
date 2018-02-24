@@ -15,16 +15,19 @@ function [] = fixationDuration(clipno)
     video = VideoReader(strcat(homepath,'/Media/EyeTrackingClip', int2str(clipno), '.mp4'));
     
     data = dlmread(strcat(homepath,'/Working Directory/Data/Lay1videoGZD.txt'),'	',15, 0);
+
+%   timestamps for beginning and ending of each clip within the whole
+%   test video
+    start_sec = [30, 49, 69, 89, 109, 129; 42, 63, 83, 103, 123, 137];    
     
-    totalSacc = zeros(1,8);
+    saccDur = zeros(1,7);
     for subject = 1:7
 %       read in the gaze data for the subject, in the form
 %       LayXVideoGZD.txt or AnaesExpertXVideoGZD.txt or NoviceXVideoGZD.txt
         filename = strcat(homepath,'/Working Directory/Data/Lay', int2str(subject), 'VideoGZD.txt');
-%       timestamps for beginning and ending of each clip within the whole
-%       test video
 
-        start_sec = [30, 49, 69, 89, 109, 129; 42, 63, 83, 103, 123, 137];    
+
+        
 
         %n is the number of frames for the clip
         n = round(video.FrameRate * video.Duration);
@@ -95,17 +98,17 @@ function [] = fixationDuration(clipno)
                 end
             end
         end
-        totalSacc(subject) = mean(saccade);
+        saccDur(subject) = mean(saccade);
     end
-    bar(totalSacc);
+    bar(saccDur);
     xlabel('Lay');
     ylabel('Mean Saccade Duration (s)');
     title(strcat('Clip', int2str(clipno)));
     xlim = get(gca,'xlim');
     hold on;
-    mnSaccades = mean(totalSacc);
+    mnSaccades = mean(saccDur);
     plot(xlim,[mnSaccades mnSaccades]);
-    save(strcat('LayClip',int2str(clipno),'SaccadeDuration.mat'),'totalSacc');
+    save(strcat('LayClip',int2str(clipno),'SaccadeDuration.mat'),'saccDur');
     saveas(gcf,strcat('Lay',int2str(clipno),'SaccadeDuration.jpg'));
     close gcf;
 end

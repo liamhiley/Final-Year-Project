@@ -6,10 +6,10 @@ function [] = gazeMapOverlay(clipno,is_image)
         clipno = 1;
     end
     
-    data = dlmread('AnaesExpert1videoGZD.txt','	',15, 0);
+    data = dlmread('/Data/AnaesExpert1videoGZD.txt','	',15, 0);
     start_sec = [30, 49, 69, 89, 109, 129, 154, 174, 194, 214, 234, 254, 275, 295];
     
-    video = VideoReader(strcat('EyeTrackingClip', int2str(clipno), '.avi'));
+    video = VideoReader(strcat('../Media/EyeTrackingClip', int2str(clipno), '.mp4'));
     if ~is_image
         writer = VideoWriter('Expert1Clip1');
     end    

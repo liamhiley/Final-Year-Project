@@ -1,7 +1,7 @@
-function [outputArg1,outputArg2] = NewExpert(inputArg1,inputArg2)
-%NEWEXPERT Summary of this function goes here
-%   Detailed explanation goes here
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
+function [] = NewExpert(num_frames,mix,seed_expert)
+    data = [];
+    num_frames = 
+    
+    save(filename,data);
 end
 

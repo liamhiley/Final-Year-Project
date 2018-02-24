@@ -7,7 +7,6 @@ function [X] = gzdprocess(filename,start_ind,end_ind,cut)
     if ~exist('cut','var')
         cut = false;
     end
-
     data = dlmread(filename,'	',15, 0);
     data = data(start_ind:end_ind,:);
 
@@ -30,4 +29,6 @@ function [X] = gzdprocess(filename,start_ind,end_ind,cut)
 %   and in traditional formulae
 %   in this case the mixtures will be 2-dimensional models
     X = [X_M Y_M];
+%     filename = strcat(filename(1:end-7),'.mat');
+%     save(filename,'X');
 end

@@ -3,6 +3,7 @@ function [] = initFixation(clipno)
 %   into each of the components of the Lay model for that clip
 
 
+    homepath = '/Users/liam/Projects/Final-Year-Project';
 %   get the Expert model for the clip
     load(strcat('expert',int2str(clipno),'.net'), 'mix', '-mat');
 %   initialise figure
@@ -11,15 +12,15 @@ function [] = initFixation(clipno)
     hold on;
     
     %read in the clip to be used
-    video = VideoReader(strcat('EyeTrackingClip', int2str(clipno), '.avi'));
+    video = VideoReader(strcat(homepath,'/Media/EyeTrackingClip', int2str(clipno), '.mp4'));
     
-    data = dlmread('Lay1videoGZD.txt','	',15, 0);
+    data = dlmread(strcat(homepath,'/Working Directory/Data/Lay1videoGZD.txt'),'	',15, 0);
     
     initSaccs = zeros(1,7);
     for subject = 1:7
 %       read in the gaze data for the subject, in the form
 %       LayXVideoGZD.txt or AnaesExpertXVideoGZD.txt or NoviceXVideoGZD.txt
-        filename = strcat('Lay', int2str(subject), 'VideoGZD.txt');
+        filename = strcat(homepath,'/Working Directory/Data/Lay', int2str(subject), 'VideoGZD.txt');
 %       timestamps for beginning and ending of each clip within the whole
 %       test video
 
@@ -95,6 +96,7 @@ function [] = initFixation(clipno)
     hold on;
     mnSaccades = mean(initSaccs);
     plot(xlim,[mnSaccades mnSaccades]);
+    save(strcat('LayClip',int2str(clipno),'InitSaccade.mat'),'initSaccs');
     saveas(gcf,strcat('LayClip',int2str(clipno),'InitialSaccade.jpg'));
     close gcf;
 end
