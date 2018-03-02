@@ -36,9 +36,9 @@ function [] = varPerClip(clipno, group)
 %       label each gaze point by it's most likely gaussian
         [Val, Ind] = max(P');
         
-        numSeg = 15;
+        segSz = 15;
 % %     for segSz clip segments of approx. equal length second each
-        for t_step = 0:numSeg-1
+        for t_step = 0:14
             i = floor(size(mnGz,1)*t_step/15)+1;
             j = floor(size(mnGz,1)*(t_step+1)/15);
             clusterXVar = zeros(mix.ncentres,1);
@@ -55,20 +55,20 @@ function [] = varPerClip(clipno, group)
                 if isnan(yVar)
                     yVar = 0;
                 end
-                clusterXVar(c) = xVar;
+                clusterXVar(c) = cluxVar;
                 clusterYVar(c) = yVar;
             end
 %           average the variance per cluster
-            fixVar(t_step+1,subject,1) = mean(clusterXVar);
-            fixVar(t_step+1,subject,2) = mean(clusterYVar);           
+            fixVar(t_step+1,subject) = mean(clusterXVar);
+            fixVar(t_step+1,subject+n_subjects) = mean(clusterYVar);           
         end
 %       normalise matrices for use in classification
-        x = fixVar(:,subject,1);
+        x = fixVar(:,subject);
         x = (x-min(min(x)))/(max(max(x))-min(min(x)));
-        fixVar(:,subject,1) = x;
-        y = fixVar(:,subject,2);
+        fixVar(:,subject) = x;
+        y = fixVar(:,:,subject+n_subjects);
         y = (y-min(min(y)))/(max(max(y))-min(min(y)));
-        fixVar(:,subject,2) = y;
+        fixVar(:,:,subject+n_subjects) = y;
     end
     save(strcat(group, 'Clip', int2str(clipno), 'Variance.mat'),'fixVar');
     close(gcf);
