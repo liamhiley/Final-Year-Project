@@ -76,6 +76,7 @@ function [data] = fixationsSpentInCluster(clipno,group)
                 else
                     if cnt >= 5
                         saccade = [saccade ; fixationcnt(gz-1)];
+                        cnt = 0;
                     end
                 end
             end

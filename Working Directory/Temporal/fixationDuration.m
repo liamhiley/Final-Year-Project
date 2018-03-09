@@ -1,115 +1,99 @@
-function [] = fixationDuration(clipno)
-%   Generate discrete histograms for each subject in how often they fit 
-%   into each of the components of the Expert model for that clip
-
+function [] = fixationDuration(clipno,group)
+%   Generate discrete histograms for each subject in the average time spent focusing 
+%   on each of the components of the Expert model for that clip
 
     homepath = '/Users/liam/Projects/Final-Year-Project';
 %   get the Expert model for the clip
     load(strcat('expert',int2str(clipno),'.net'), 'mix', '-mat');
-%   initialise figure
-    figure('units','normalized','outerposition',[0 0 1 1]);
 %   subject can either be Expert, novice, or lay
-    hold on;
+    if strcmp(group,'Lay')
+        n_subjects = 7;
+    else
+        n_subjects = 8;
+    end
     
-    %read in the clip to be used
-    video = VideoReader(strcat(homepath,'/Media/EyeTrackingClip', int2str(clipno), '.mp4'));
-    
-    data = dlmread(strcat(homepath,'/Working Directory/Data/Lay1videoGZD.txt'),'	',15, 0);
+    data = dlmread(strcat(homepath,'/Working Directory/Data/',group,'1videoGZD.txt'),'	',15, 0);
+%   UNCOMMENT BELOW WHEN USING RANDOM CLASS
+%   data = load(filename)
 
 %   timestamps for beginning and ending of each clip within the whole
 %   test video
-    start_sec = [30, 49, 69, 89, 109, 129; 42, 63, 83, 103, 123, 137];    
+    timestmps = [30, 49, 69, 89, 109, 129; 42, 63, 83, 103, 123, 137];
     
-    saccDur = zeros(1,7);
-    for subject = 1:7
-%       read in the gaze data for the subject, in the form
-%       LayXVideoGZD.txt or AnaesExpertXVideoGZD.txt or NoviceXVideoGZD.txt
-        filename = strcat(homepath,'/Working Directory/Data/Lay', int2str(subject), 'VideoGZD.txt');
-
-
+    mnGz = [];
+    numSeg = 15;
+    saccDurPerCluster = zeros(n_subjects,numSeg);
+    for subject = 1:n_subjects
+%       obtain data for subject
+        data = dlmread(strcat(homepath,'/Working Directory/Data/',group,int2str(subject),'videoGZD.txt'),'	',15, 0);
+%       extract data relevant to this clip
+        data = data(data(:,1)>(timestmps(1,clipno)*1000),:);
+        data = data(data(:,1)<(timestmps(2,clipno)*1000),:);
+%       take mean of left and right gaze points
+        mnGz = [mean([data(:,3) data(:,10)],2) mean([data(:,4) data(:,11)],2)];
+%       extract data within video frame
+        mnGz = mnGz(mnGz(:,1)>=0,:);
+        mnGz = mnGz(mnGz(:,1)<=1280,:);
+        mnGz = mnGz(mnGz(:,2)>=0,:);
+        mnGz = mnGz(mnGz(:,2)<=1024,:);
+%       find posterior of each gaussian for each point 
+        P = gmmpost(mix, mnGz);
+%       label each gaze point by it's most likely gaussian
+        [Val, Ind] = max(P');
         
-
-        %n is the number of frames for the clip
-        n = round(video.FrameRate * video.Duration);
-
-        %get the range (first and last frame no.) of the clips corresponding
-        %eye frames, clip_no starting sec * average framerate for eye data
-        eye_frame = start_sec(clipno) * (data(end,2)/(data(end,1)/1000));
-        i = floor(eye_frame);
-        %record starting frame
-        j = i;
-
-        %get the index of the last frame in the clip
-        while true
-            %if EOF is reached, break
-            if i > size(data,1)
-                break;
-            end
-            time = data(i,1);
-            %if the time in seconds is greater than the start of the clip in
-            %the test video, + the duration, then this must be the final frame
-            %relevant to the clip
-            if (time / 1000 >= start_sec(clipno)+ video.Duration)
-                break;
-            end
-            i = i + 1;
-        end 
-
-        %we now have the starting and ending index of the eye data
-        start_ind = j;
-        end_ind = i;
-        X = gzdprocess(filename, start_ind, end_ind);
-        
-        n = size(X,1);
-        
-%       The following algorithm is the definition for finding saccades in
-%       eye tracking data as stated by O. Le Meur et al. in Overt Visual
-%       Attention for free-viewing and quality assessment tasks, Impact of
-%       the regions of interest on a video quality metric.
-        
-%       each value of fixationcnt is either the index of the cluster the
-%       eye is currently in if a fixation is possibly occurring at this
-%       frame, or 0 otherwise
-        fixations = zeros(1,n);
-        for i = 2:n
-%           Calculate point-to-point velocity
-            velx = abs(X(i,1) - X(i-1,1))*52;
-            vely = abs(X(i,2) - X(i-1,2))*52;
-            vel = sqrt((velx^2+vely^2));
-%           convert velocity from px/s to deg/s
-%           assuming 33px to 1 degree, given a 75dpi display
-            vel = vel/33;
-%           if velocity is under 25deg/s then count it as a potential
-%           fixation
-            if vel < 25
-                fixations(i) = 1;
-            end
-        end
-%       if a group of fixation points lasts for longer than 100ms,
-%       approx. 5 frames at 52fps, then count this as a saccade
-        saccade = [];
-        cnt = 0;
-        for i = 2:n
-            if fixations(i) == fixations(i-1) && fixations(i)~= 0
-                cnt = cnt + 1;
-            else
-                if cnt >= 5
-                    saccade = [saccade cnt/52];
+%       for segSz clip segments of approx. equal length each
+        for t_step = 0:numSeg - 1
+            i = floor(size(mnGz,1)*t_step/15)+1;
+            j = floor(size(mnGz,1)*(t_step+1)/15);
+            
+%           iterate through the segment data and find fixations
+%           each value of fixationcnt is either the index of the cluster the
+%           eye is currently in if a fixation is possibly occurring at this
+%           frame, or 0 otherwise
+            fixationcnt = 0;
+            for gz = i+1:j
+%               Calculate point-to-point velocity                
+                velx = mnGz(gz,1) - mnGz(gz-1,1);
+                vely = mnGz(gz,2) - mnGz(gz-1,2);                
+%               convert velocity from px/s to deg/s
+%               assuming 33px to 1 degree, given a 75dpi display
+                vel = sqrt(velx^2 + vely^2)/33;
+%               if velocity is under 25deg/s and subject is in the same cluster as previous frame
+%               then count it as a potential fixation
+                if vel < 25 && Ind(gz) == Ind(gz-1)
+                    fixationcnt = [fixationcnt; Ind(gz)];
+                else
+                    fixationcnt = [fixationcnt; 0];
                 end
             end
+%           if a group of fixation points lasts for longer than 100ms,
+%           approx. 5 frames at 52fps, then count this as a saccade
+            saccade = [];
+            cnt = 0;
+            for gz = 2:j-i
+                if (fixationcnt(gz) == fixationcnt(gz-1)) && fixationcnt(gz)~= 0
+                    cnt = cnt + 1;
+                else
+                    if cnt >= 5
+                        saccade = [saccade ; fixationcnt(gz-1), cnt/52];
+                        cnt = 0;
+                    end
+                end
+            end
+            if cnt >= 5
+                saccade = [saccade ; fixationcnt(gz-1), cnt/52];
+                cnt = 0;
+            end
+            saccDurInCluster = zeros(1,mix.ncentres+1);
+            for c = 1:mix.ncentres
+                saccDurInCluster(c) = mean(saccade(saccade(:,1)==c,2));
+                if isnan(saccDurInCluster(c))
+                    saccDurInCluster(c) = 0;
+                end
+            end
+            saccDurPerCluster(subject,t_step+1) = mean(saccDurInCluster);
         end
-        saccDur(subject) = mean(saccade);
     end
-    bar(saccDur);
-    xlabel('Lay');
-    ylabel('Mean Saccade Duration (s)');
-    title(strcat('Clip', int2str(clipno)));
-    xlim = get(gca,'xlim');
-    hold on;
-    mnSaccades = mean(saccDur);
-    plot(xlim,[mnSaccades mnSaccades]);
-    save(strcat('LayClip',int2str(clipno),'SaccadeDuration.mat'),'saccDur');
-    saveas(gcf,strcat('Lay',int2str(clipno),'SaccadeDuration.jpg'));
-    close gcf;
+    save(strcat(group,'Clip',int2str(clipno),'SaccadeDuration.mat'),'saccDurPerCluster');
 end
 
