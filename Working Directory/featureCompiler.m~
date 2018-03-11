@@ -155,22 +155,19 @@ function [] = featureCompiler(clipno)
         'expert';'expert';'expert';'lay';'lay';'lay';'lay';...
         'lay';'lay';'lay',};
 %   compare all distance measures
-    cosX = tsne(X,'Distance','cosine','NumDimensions',3);
-    eucX = tsne(X,'Distance','euclidean','NumDimensions',3);
-    chebX = tsne(X,'Distance','chebychev','NumDimensions',3);
-    
-    v = double(categorical(group));
-    c = full(sparse(1:numel(v),v,ones(size(v)),numel(v),3))
+    cosX = tsne(X,'Distance','cosine');
+    eucX = tsne(X,'Distance','euclidean');
+    chebX = tsne(X,'Distance','chebychev');
     
     figure;
     subplot(2,2,2);
-    scatter3(cosX(:,1),cosX(:,2),cosX(:,3),15,c);
+    gscatter(cosX(:,1),cosX(:,2),group);
     title('Cosine');
     subplot(2,2,3);
-    scatter3(eucX(:,1),eucX(:,2),eucX(:,3),15,c);
+    gscatter(eucX(:,1),eucX(:,2),group);
     title('Euclidean');
     subplot(2,2,4);
-    scatter3(chebX(:,1),chebX(:,2),chebX(:,3),15,c);
+    gscatter(chebX(:,1),chebX(:,2),group);
     title('Chebychev');
     
     
