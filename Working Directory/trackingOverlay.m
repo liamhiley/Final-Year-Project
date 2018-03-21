@@ -16,18 +16,25 @@ function [] = trackingOverlay(clipno,subject,group)
     
 %   timestamps for beginning and ending of each clip within the whole
 %   test video
-    timestmps = [30, 49, 69, 89, 109, 129; 42, 63, 83, 103, 123, 137];
+    timestmps = [30, 50, 70, 90, 110, 130, 155, 175, 195, 215, 235; 45, 65, 85, 105, 125, 145, 170, 190, 210, 230, 250];
     
 %   read in gaze data for subject
     data = dlmread(strcat(homepath,'/Working Directory/Data/',group,int2str(subject),'videoGZD.txt'),'	',15, 0);
 %   select data relevant to the clip
     data = data(data(:,1)>(timestmps(1,clipno)*1000),:);
     data = data(data(:,1)<(timestmps(2,clipno)*1000),:);
-    data(:,4) = data(:,4) * 720/1024;
-    data(:,11) = data(:,11) * 720/1024;
+    if clipno > 6
+        data(:,3) = data(:,3) * 720/1280;
+        data(:,10) = data(:,10) * 720/1280;
+        data(:,4) = data(:,4) * 368/1024;
+        data(:,11) = data(:,11) * 368/1024;
+    else
+        data(:,4) = data(:,4) * 720/1024;
+        data(:,11) = data(:,11) * 720/1024;
+    end
     prevframe = [];
-    size(data,1)
-    i = 1
+    size(data,1);
+    i = 1;
     for gzframe = data'
         vidframe = readFrame(rdr);
         imshow(vidframe);

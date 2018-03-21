@@ -64,7 +64,7 @@ function [] = ClusteringWithElbowMethod(clipno, mix)
     %normalise data
     if clipno > 6
         X(:,1) = X(:,1)*(720/1280);
-        X(:,2) = X(:,2)*(480/1024);
+        X(:,2) = X(:,2)*(368/1024);
     else
         X(:,1) = X(:,1)*(720/1024);
     end
@@ -132,7 +132,7 @@ function [] = ClusteringWithElbowMethod(clipno, mix)
         end
         
         if num_centres ~= 1
-            if options(8) - err > 10
+            if options(8) - err > 1
                 return;
             end 
         end

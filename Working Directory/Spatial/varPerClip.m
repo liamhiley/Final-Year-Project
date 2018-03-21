@@ -62,12 +62,18 @@ function [] = varPerClip(clipno, group)
             fixVar(t_step+1,subject,1) = mean(clusterXVar);
             fixVar(t_step+1,subject,2) = mean(clusterYVar);           
         end
-%       normalise matrices for use in classification
+%       standardise matrices for use in classification
         x = fixVar(:,subject,1);
         x = (x-min(min(x)))/(max(max(x))-min(min(x)));
+        if sum(isnan(x)) > 1
+            x = zeros(size(x,1),1);
+        end
         fixVar(:,subject,1) = x;
         y = fixVar(:,subject,2);
         y = (y-min(min(y)))/(max(max(y))-min(min(y)));
+        if sum(isnan(y)) > 1
+            y = zeros(size(y,1),1);
+        end
         fixVar(:,subject,2) = y;
     end
     save(strcat(group, 'Clip', int2str(clipno), 'Variance.mat'),'fixVar');

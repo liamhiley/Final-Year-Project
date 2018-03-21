@@ -21,7 +21,7 @@ function [] = transitionsOverTime(clipno,group)
     
     mnGz = [];
     numSeg = 15;
-    saccPerCluster = zeros(n_subjects,numSeg);
+    transMat = [];
     for subject = 1:n_subjects
 %       obtain data for subject
         data = dlmread(strcat(homepath,'/Working Directory/Data/',group,int2str(subject),'videoGZD.txt'),'	',15, 0);
@@ -40,15 +40,19 @@ function [] = transitionsOverTime(clipno,group)
 %       label each gaze point by it's most likely gaussian
         [val, ind] = max(P');
 %       for segSz clip segments of approx. equal length each
+        subTrans = [];
         for t_step = 0:numSeg - 1
             i = floor(size(mnGz,1)*t_step/15)+1;
             j = floor(size(mnGz,1)*(t_step+1)/15);
             trans = zeros(mix.ncentres,mix.ncentres);
-            for frame = i:2:j
+            for frame = i:2:j-1
                 if ind(frame) ~= ind(frame+1)
                     trans(ind(frame),ind(frame+1)) = trans(ind(frame),ind(frame+1)) + 1;
                 end
             end
+            subTrans = [subTrans;sparse(trans)];
         end
+        transMat = [transMat;reshape(subTrans,1,size(subTrans,1)*size(subTrans,2))];
     end
+    save(strcat(group,'Clip',int2str(clipno),'transitions.mat'),'transMat');
 end
