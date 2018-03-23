@@ -84,6 +84,9 @@ function [] = fixationDuration(clipno,group)
                 saccade = [saccade ; fixationcnt(gz-1), cnt/52];
                 cnt = 0;
             end
+            if isempty(saccade)
+                saccade = [0 0];
+            end
             saccDurInCluster = zeros(1,mix.ncentres+1);
             for c = 1:mix.ncentres
                 saccDurInCluster(c) = mean(saccade(saccade(:,1)==c,2));
