@@ -35,10 +35,11 @@ function [] = trackingOverlay(clipno,subject,group)
     prevframe = [];
     size(data,1);
     i = 1;
-    for gzframe = data'
+    while hasFrame(rdr)
         vidframe = readFrame(rdr);
         imshow(vidframe);
         hold on;
+        gzframe = data(i,:);
         if size(prevframe,1) > 0
             plot([prevframe(3) gzframe(3)],[prevframe(4) gzframe(4)],'b-');
             plot([prevframe(10) gzframe(10)],[prevframe(11) gzframe(11)],'r-');

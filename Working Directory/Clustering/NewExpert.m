@@ -1,4 +1,4 @@
-function [] = NewExpert(clipno)
+function [] = NewExpert(clipno,subject)
 %   Uses a pre-trained GMM for Experts to generate exp to simulate an
 %   Expert watching the video specified by clipno. This randomly samples
 %   from each of the components of the model to create a convincing
@@ -13,9 +13,9 @@ function [] = NewExpert(clipno)
     load(strcat('Expert Networks/expert',int2str(clipno),'.net'),'mix','-mat');
 %   Each video is approx. 15 seconds long at framerate of 50.2281fps
     numFrames = ceil(50.2281*15);
-%   Generate around 15 Saccades for the video at lengths varying from
-%   100 to 900 milliseconds = 5 to 45 frames
-    numSacc = randi([13 17]);
+%   Generate around 15 Saccades for the video at lengths varying from 800ms
+%   to 1100ms
+    numSacc = 15;%randi([13 17])
     exp = zeros(numFrames,2);
     step = floor(numFrames/numSacc);
     for frame = 1:step:numFrames
@@ -35,5 +35,5 @@ function [] = NewExpert(clipno)
             exp(saccFrame,:) = [x y];
         end
     end
-    save('NewExpert.mat','exp');
+    save(strcat(homepath,'/Working Directory/Data/Clip',int2str(clipno),'NewExpert',int2str(subject),'.mat'),'exp');
 end

@@ -10,22 +10,37 @@ function [] = featureCompiler(clipno)
     lay = [];
 %   load in various sets of features for experts and lays
     working = '/Users/liam/Projects/Final-Year-Project/Working Directory/';
-    load(strcat(working,'Temporal/ExpertClip',int2str(clipno),'Saccades.mat'));
-    exp = zscore(saccPerCluster(:,1:7));
-    load(strcat(working,'Temporal/LayClip',int2str(clipno),'Saccades.mat'));
-    lay = zscore(saccPerCluster(:,1:7));
-    load(strcat(working,'Temporal/ExpertClip',int2str(clipno),'SaccadeDuration.mat'));
-    exp = [exp zscore(saccDurPerCluster(:,1:7))];
-    load(strcat(working,'Temporal/LayClip',int2str(clipno),'SaccadeDuration.mat'));
-    lay = [lay zscore(saccDurPerCluster(:,1:7))];
-    load(strcat(working,'Spatial/ExpertClip',int2str(clipno),'Variance.mat'));
-    exp = [exp zscore(fixVar(1:7,:,1)') zscore(fixVar(1:7,:,2)')];
-    load(strcat(working,'Spatial/LayClip',int2str(clipno),'Variance.mat'));
-    lay = [lay zscore(fixVar(1:7,:,1)') zscore(fixVar(1:7,:,2)')];
-    load(strcat(working,'/Spatial/ExpertClip',int2str(clipno),'numTransitions.mat'));
-    exp = [exp zscore(numTrans(:,1:7))];
-    load(strcat(working,'/Spatial/LayClip',int2str(clipno),'numTransitions.mat'));
-    lay = [lay zscore(numTrans(:,1:7))];
+    %The following can be used for all clips
+    load(strcat(working,'Temporal/SaccadeDuration/ExpertClip',int2str(clipno),'SaccadeDuration.mat'));
+    exp = [exp zscore(saccDurPerCluster(:,:))];
+    load(strcat(working,'Temporal/SaccadeDuration/LayClip',int2str(clipno),'SaccadeDuration.mat'));
+    lay = [lay zscore(saccDurPerCluster(:,:))];
+    load(strcat(working,'/Spatial/DistanceTravelled/ExpertClip',int2str(clipno),'DistanceTravelled.mat'));
+    exp = [exp zscore(total_dist(:,:))];
+    load(strcat(working,'/Spatial/DistanceTravelled/LayClip',int2str(clipno),'DistanceTravelled.mat'));
+    lay = [lay zscore(total_dist(:,:))];
+    load(strcat(working,'Temporal/TimeBetweenSaccades/ExpertClip',int2str(clipno),'TimeBetweenSaccades.mat'));
+    exp = [exp zscore(total_time(:,:))];
+    load(strcat(working,'Temporal/TimeBetweenSaccades/LayClip',int2str(clipno),'TimeBetweenSaccades.mat'));
+    lay = [lay zscore(total_time(:,:))];
+    load(strcat(working,'Temporal/TimeBetweenSaccades/ExpertClip',int2str(clipno),'TimeBetweenSaccades.mat'));
+    exp = [exp zscore(total_time(:,:))];
+    load(strcat(working,'Temporal/TimeBetweenSaccades/LayClip',int2str(clipno),'TimeBetweenSaccades.mat'));
+    lay = [lay zscore(total_time(:,:))];
+    
+    load(strcat(working,'Temporal/SaccadesPerCluster/ExpertClip',int2str(clipno),'SaccadesPerCluster.mat'));
+    exp = zscore(saccPerCluster(:,:));
+    load(strcat(working,'Temporal/SaccadesPerCluster/LayClip',int2str(clipno),'SaccadesPerCluster.mat'));
+    lay = zscore(saccPerCluster(:,:));
+    load(strcat(working,'Spatial/Variance/ExpertClip',int2str(clipno),'Variance.mat'));
+    exp = [exp zscore(fixVar(:,:,1)') zscore(fixVar(:,:,2)')];
+    load(strcat(working,'Spatial/Variance/LayClip',int2str(clipno),'Variance.mat'));
+    lay = [lay zscore(fixVar(:,:,1)') zscore(fixVar(:,:,2)')];
+    load(strcat(working,'/Spatial/numTransitions/ExpertClip',int2str(clipno),'numTransitions.mat'));
+    exp = [exp zscore(numTrans(:,:))];
+    load(strcat(working,'/Spatial/numTransitions/LayClip',int2str(clipno),'numTransitions.mat'));
+    lay = [lay zscore(numTrans(:,:))];
+    
     
     
 %   Combine expert and lay data
