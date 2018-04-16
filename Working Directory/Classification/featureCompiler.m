@@ -10,11 +10,15 @@ function [] = featureCompiler(clipno)
     lay = [];
 %   load in various sets of features for experts and lays
     working = '/Users/liam/Projects/Final-Year-Project/Working Directory/';
-    %The following can be used for all clips
+%   The following can be used for all clips
+    load(strcat(working,'Temporal/SaccadeCount/ExpertClip',int2str(clipno),'SaccadeCount.mat'));
+    exp = [exp zscore(sacc_cnt(:,:))];
+    load(strcat(working,'Temporal/SaccadeCount/LayClip',int2str(clipno),'SaccadeCount.mat'));
+    lay = [lay zscore(sacc_cnt(:,:))];
     load(strcat(working,'Temporal/SaccadeDuration/ExpertClip',int2str(clipno),'SaccadeDuration.mat'));
-    exp = [exp zscore(saccDurPerCluster(:,:))];
+    exp = [exp zscore(sacc_dur_per_step(:,:))];
     load(strcat(working,'Temporal/SaccadeDuration/LayClip',int2str(clipno),'SaccadeDuration.mat'));
-    lay = [lay zscore(saccDurPerCluster(:,:))];
+    lay = [lay zscore(sacc_dur_per_step(:,:))];
     load(strcat(working,'/Spatial/DistanceTravelled/ExpertClip',int2str(clipno),'DistanceTravelled.mat'));
     exp = [exp zscore(total_dist(:,:))];
     load(strcat(working,'/Spatial/DistanceTravelled/LayClip',int2str(clipno),'DistanceTravelled.mat'));
@@ -28,19 +32,21 @@ function [] = featureCompiler(clipno)
     load(strcat(working,'Temporal/TimeBetweenSaccades/LayClip',int2str(clipno),'TimeBetweenSaccades.mat'));
     lay = [lay zscore(total_time(:,:))];
     
-    load(strcat(working,'Temporal/SaccadesPerCluster/ExpertClip',int2str(clipno),'SaccadesPerCluster.mat'));
-    exp = zscore(saccPerCluster(:,:));
-    load(strcat(working,'Temporal/SaccadesPerCluster/LayClip',int2str(clipno),'SaccadesPerCluster.mat'));
-    lay = zscore(saccPerCluster(:,:));
-    load(strcat(working,'Spatial/Variance/ExpertClip',int2str(clipno),'Variance.mat'));
-    exp = [exp zscore(fixVar(:,:,1)') zscore(fixVar(:,:,2)')];
-    load(strcat(working,'Spatial/Variance/LayClip',int2str(clipno),'Variance.mat'));
-    lay = [lay zscore(fixVar(:,:,1)') zscore(fixVar(:,:,2)')];
-    load(strcat(working,'/Spatial/numTransitions/ExpertClip',int2str(clipno),'numTransitions.mat'));
-    exp = [exp zscore(numTrans(:,:))];
-    load(strcat(working,'/Spatial/numTransitions/LayClip',int2str(clipno),'numTransitions.mat'));
-    lay = [lay zscore(numTrans(:,:))];
-    
+%   the following can only be used with the static images
+    if clipno < 7
+        load(strcat(working,'Temporal/SaccadesPerCluster/ExpertClip',int2str(clipno),'SaccadesPerCluster.mat'));
+        exp = zscore(sacc_per_cluster(:,:));
+        load(strcat(working,'Temporal/SaccadesPerCluster/LayClip',int2str(clipno),'SaccadesPerCluster.mat'));
+        lay = zscore(sacc_per_cluster(:,:));
+        load(strcat(working,'Spatial/Variance/ExpertClip',int2str(clipno),'Variance.mat'));
+        exp = [exp zscore(fix_var(:,:,1)') zscore(fixVar(:,:,2)')];
+        load(strcat(working,'Spatial/Variance/LayClip',int2str(clipno),'Variance.mat'));
+        lay = [lay zscore(fix_var(:,:,1)') zscore(fixVar(:,:,2)')];
+        load(strcat(working,'/Spatial/numTransitions/ExpertClip',int2str(clipno),'numTransitions.mat'));
+        exp = [exp zscore(num_trans(:,:))];
+        load(strcat(working,'/Spatial/numTransitions/LayClip',int2str(clipno),'numTransitions.mat'));
+        lay = [lay zscore(num_trans(:,:))];
+    end
     
     
 %   Combine expert and lay data
@@ -56,8 +62,8 @@ function [] = featureCompiler(clipno)
     hold on;
     plot(1:size(norm_eig,1),norm_eig,'kx');
     plot(1:size(norm_eig,1),norm_eig);
-%     saveas(gcf,strcat('Clip',int2str(clipno),'FullPCA','.jpg'));
-%     close(gcf);
+    saveas(gcf,strcat('Clip',int2str(clipno),'FullPCA','.jpg'));
+    close(gcf);
 %   Split components into  gaussian
 %   Count number of components that produce 60% of the eigen energy
     i = 1;
@@ -95,8 +101,8 @@ function [] = featureCompiler(clipno)
     legend('G1','G2')
     xlabel('PC');
     ylabel('Eigen energy (%)');
-%     saveas(gcf,strcat('Clip',int2str(clipno),'GaussianPCA.jpg'));
-%     close(gcf);
+    saveas(gcf,strcat('Clip',int2str(clipno),'GaussianPCA.jpg'));
+    close(gcf);
     
 %   Sort features based on their individual classification accuracy
     y = [ones(8,1);zeros(7,1)-1];
@@ -156,8 +162,8 @@ function [] = featureCompiler(clipno)
     subplot(2,2,4);
     scatter3(chebX(:,1),chebX(:,2),chebX(:,3),15,c);
     title('Chebychev');
-%     saveas(gcf,strcat('Clip',int2str(clipno),'t-SNE.fig'));
-%     close(gcf);
+    saveas(gcf,strcat('Clip',int2str(clipno),'t-SNE.fig'));
+    close(gcf);
 
 
 end
