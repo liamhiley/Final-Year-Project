@@ -33,9 +33,9 @@ function [data] = saccadesSpentInCluster(clipno,group)
         mnGz = mnGz(mnGz(:,2)>=0,:);
         mnGz = mnGz(mnGz(:,2)<=1024,:);
 %       UNCOMMENT BELOW WHEN USING RANDOM CLASS
-        filename = strcat(homepath,'/Working Directory/Data/Clip',int2str(clipno),'NewExpert',int2str(subject),'.mat');
-        load(filename,'exp','-mat');
-        mnGz = exp;
+%         filename = strcat(homepath,'/Working Directory/Data/Clip',int2str(clipno),'NewExpert',int2str(subject),'.mat');
+%         load(filename,'exp','-mat');
+%         mnGz = exp;
 %       find posterior of each gaussian for each point 
         P = gmmpost(mix, mnGz);
 %       label each gaze point by it's most likely gaussian
@@ -90,5 +90,5 @@ function [data] = saccadesSpentInCluster(clipno,group)
             sacc_per_cluster(subject,t_step+1) = sum(sacc_in_cluster);
         end
     end
-    save(strcat(group,'Clip', int2str(clipno),'Saccades.mat'),'sacc_per_cluster');
+    save(strcat('SaccadesPerCluster/',group,'Clip', int2str(clipno),'SaccadesPerCluster.mat'),'sacc_per_cluster');
 end

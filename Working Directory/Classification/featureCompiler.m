@@ -39,9 +39,9 @@ function [] = featureCompiler(clipno)
         load(strcat(working,'Temporal/SaccadesPerCluster/LayClip',int2str(clipno),'SaccadesPerCluster.mat'));
         lay = zscore(sacc_per_cluster(:,:));
         load(strcat(working,'Spatial/Variance/ExpertClip',int2str(clipno),'Variance.mat'));
-        exp = [exp zscore(fix_var(:,:,1)') zscore(fixVar(:,:,2)')];
+        exp = [exp zscore(fix_var(:,:,1)') zscore(fix_var(:,:,2)')];
         load(strcat(working,'Spatial/Variance/LayClip',int2str(clipno),'Variance.mat'));
-        lay = [lay zscore(fix_var(:,:,1)') zscore(fixVar(:,:,2)')];
+        lay = [lay zscore(fix_var(:,:,1)') zscore(fix_var(:,:,2)')];
         load(strcat(working,'/Spatial/numTransitions/ExpertClip',int2str(clipno),'numTransitions.mat'));
         exp = [exp zscore(num_trans(:,:))];
         load(strcat(working,'/Spatial/numTransitions/LayClip',int2str(clipno),'numTransitions.mat'));
@@ -62,8 +62,19 @@ function [] = featureCompiler(clipno)
     hold on;
     plot(1:size(norm_eig,1),norm_eig,'kx');
     plot(1:size(norm_eig,1),norm_eig);
-    saveas(gcf,strcat('Clip',int2str(clipno),'FullPCA','.jpg'));
+    saveas(gcf,strcat('Clip',int2str(clipno),'FullPCA','.png'));
     close(gcf);
+    
+%   Plot data transformed onto PCA space
+    title('Scores of first two components');
+    plot(score(1:8,1),score(1:8,2),'rx')
+    hold on;
+    plot(score(9:end,1),score(9:end,2),'bx');
+    xlabel('PC1');
+    ylabel('PC2');
+    saveas(gcf,strcat('Clip',int2str(clipno),'Transformed','.png'));
+    close(gcf);
+    
 %   Split components into  gaussian
 %   Count number of components that produce 60% of the eigen energy
     i = 1;
@@ -101,7 +112,7 @@ function [] = featureCompiler(clipno)
     legend('G1','G2')
     xlabel('PC');
     ylabel('Eigen energy (%)');
-    saveas(gcf,strcat('Clip',int2str(clipno),'GaussianPCA.jpg'));
+    saveas(gcf,strcat('Clip',int2str(clipno),'GaussianPCA.png'));
     close(gcf);
     
 %   Sort features based on their individual classification accuracy
