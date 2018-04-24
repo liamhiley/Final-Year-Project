@@ -54,7 +54,7 @@ function [] = featureCompiler(clipno)
     
     figure;
     [coeff, score, latent] = pca(X);
-    norm_eig = 100*latent / sum(latent);
+    [full_score,norm_eig] = filter_components(score,latent,80);
     
     title('PCA on complete data');
     xlabel('PC');
@@ -63,57 +63,66 @@ function [] = featureCompiler(clipno)
     plot(1:size(norm_eig,1),norm_eig,'kx');
     plot(1:size(norm_eig,1),norm_eig);
     saveas(gcf,strcat('Clip',int2str(clipno),'FullPCA','.png'));
-    close(gcf);
+    close(gcf);    
     
-%   Plot data transformed onto PCA space
-    title('Scores of first two components');
-    plot(score(1:8,1),score(1:8,2),'rx')
-    hold on;
-    plot(score(9:end,1),score(9:end,2),'bx');
-    xlabel('PC1');
-    ylabel('PC2');
-    saveas(gcf,strcat('Clip',int2str(clipno),'Transformed','.png'));
-    close(gcf);
-    
-%   Split components into  gaussian
-%   Count number of components that produce 60% of the eigen energy
-    i = 1;
-    energy = 0;  
-    while energy < 60
-        energy = energy + norm_eig(i);
-        i = i + 1;
-    end
-%   This will be the dimensionality of the mixture
-    prinMix = gmm(i,2,'diag');
-    options = foptions;
-    prinMix = gmminit(prinMix, score(:,1:i), options);
-    prinMix = gmmem(prinMix, score(:,1:i),options);
-    post = gmmpost(prinMix,score(:,1:i));
-    [val ind] = max(post');
-    sc1 = []; sc2 = [];
-    for j = 1:15
-        if ind(j) == 1
-            sc1 = [sc1;score(j,1:i)];
-        else
-            sc2 = [sc2; score(j,1:i)];
+%   If the number of principal components after filtering is large, split 
+%   components into  gaussian
+    num_dim = size(full_score,2);
+    if num_dim > 3
+        while(true)
+            prinMix = gmm(num_dim,2,'diag');
+            options = foptions;
+            prinMix = gmminit(prinMix, full_score, options);
+            prinMix = gmmem(prinMix, full_score,options);
+            post = gmmpost(prinMix,full_score);
+            [val, ind] = max(post');
+%           keep record of what subjects are in either gaussian
+            subjects_in_1 = []; subjects_in_2 = [];
+            sc1 = []; sc2 = [];
+            for j = 1:15
+                if ind(j) == 1
+                    sc1 = [sc1;full_score(j,:)];
+                    subjects_in_1 = [subjects_in_1; j];
+                else
+                    sc2 = [sc2; full_score(j,:)];
+                    subjects_in_2 = [subjects_in_2; j];
+                end
+            end
+            if size(sc2,1) >= 5
+                break;
+            end
         end
-    end
-%   Find the explained variability of the principal components in each
-%   Gaussian
-    cov1 = cov(sc1); cov2 = cov(sc2);
-    eig1 = eig(cov1); eig2 = eig(cov2);
-    energ1 = sort(eig1*100/sum(eig1),'descend'); energ2 = sort(eig2*100/sum(eig2),'descend');
-    
-    figure;
-    plot(1:i,energ1,'rx',1:i,energ2,'bx');
-    hold on;
-    plot(1:i,energ1,'r-',1:i,energ2,'b-');
-    title('Percentage Eigen energy of PCs in two Gaussians')
-    legend('G1','G2')
-    xlabel('PC');
-    ylabel('Eigen energy (%)');
-    saveas(gcf,strcat('Clip',int2str(clipno),'GaussianPCA.png'));
-    close(gcf);
+%       Find the explained variability of the principal components in each
+%       Gaussian
+        cov1 = cov(sc1); cov2 = cov(sc2);
+        eig1 = sort(eig(cov1),'descend'); eig2 = sort(eig(cov2),'descend');
+        [sc1, energ1] = filter_components(sc1,eig1,60); 
+        [sc2, energ2] = filter_components(sc2,eig2,60);
+
+        figure;
+        plot(1:num_dim,energ1,'rx',1:num_dim,energ2,'bx');
+        hold on;
+        plot(1:num_dim,energ1,'r-',1:num_dim,energ2,'b-');
+        title('Percentage Eigen energy of PCs in two Gaussians')
+        legend('G1','G2')
+        xlabel('PC');
+        ylabel('Eigen energy (%)');
+        saveas(gcf,strcat('Clip',int2str(clipno),'GaussianPCA.png'));
+        close(gcf);
+        save(strcat('ComponentDataClip',int2str(clipno),'.mat'),'sc1','sc2','subjects_in_1','subjects_in_2');
+    else
+%       Plot data transformed onto PCA space
+        title('Scores of first two components');
+        plot(full_score(1:8,1),full_score(1:8,2),'rx')
+        hold on;
+        plot(full_score(9:end,1),full_score(9:end,2),'bx');
+        xlabel('PC1');
+        ylabel('PC2');
+        saveas(gcf,strcat('Clip',int2str(clipno),'Transformed','.png'));
+        close(gcf);
+        save(strcat('ComponentDataClip',int2str(clipno),'.mat'),'full_score');
+    end   
+
     
 %   Sort features based on their individual classification accuracy
     y = [ones(8,1);zeros(7,1)-1];
@@ -149,7 +158,7 @@ function [] = featureCompiler(clipno)
                 'TolFun',maxdev,...
                 'TolTypeFun','abs');
 %   On original data
-    inmodel = sequentialfs(fn,cX,y,'options',opt);
+    inmodel = sequentialfs(fn,cX,y,'options',opt,'cv',c);
     
 %   Use tsne for visualisation of data in two-dimensional
     group = {'expert';'expert';'expert';'expert';'expert';...
