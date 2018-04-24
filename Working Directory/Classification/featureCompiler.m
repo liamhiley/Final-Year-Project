@@ -88,7 +88,7 @@ function [] = featureCompiler(clipno)
                     subjects_in_2 = [subjects_in_2; j];
                 end
             end
-            if size(sc2,1) >= 5
+            if min(size(sc1,1),size(sc2,1)) >= 5
                 break;
             end
         end
