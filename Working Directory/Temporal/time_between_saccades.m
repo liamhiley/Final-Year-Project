@@ -47,8 +47,8 @@ function [] = timeBetweenSaccades(clipno, group)
                 velx = mnGz(gz,1) - mnGz(gz-1,1);
                 vely = mnGz(gz,2) - mnGz(gz-1,2);                
 %               convert velocity from px/s to deg/s
-%               assuming 33px to 1 degree, given a 75dpi display
-                vel = sqrt(velx^2 + vely^2)/33;
+%               assuming 6px to 1 degree, given a 75dpi display
+                vel = sqrt(velx^2 + vely^2)/6;
 %               if velocity is under 25deg/s and subject is in the same cluster as previous frame
 %               then count it as a potential fixation
                 if vel < 25
