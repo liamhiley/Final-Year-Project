@@ -1,0 +1,7 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces A surgical equipment tray}}{9}{figure.2.1}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces The first clip from the video, with the left (red), right (blue) and centre(black) gaze points of an expert}}{10}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Here I have clustered the eye tracking data for all experts as they viewed the 3rd clip using GMMs}}{11}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Poor clustering in the clip 7 due to objects moving along the screen}}{12}{figure.3.3}

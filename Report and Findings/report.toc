@@ -1,0 +1,23 @@
+\setcounter {tocdepth}{0}
+\contentsline {section}{Abstract}{1}{section*.1}
+\contentsline {section}{Acknowledgements}{1}{section*.2}
+\setcounter {tocdepth}{2}
+\contentsline {chapter}{\numberline {1}Introduction}{5}{chapter.1}
+\contentsline {section}{Motivation}{5}{section*.6}
+\contentsline {section}{Project aims}{6}{section*.7}
+\contentsline {chapter}{\numberline {2}Background}{7}{chapter.2}
+\contentsline {section}{The science of eye tracking}{7}{section*.8}
+\contentsline {section}{Clustering}{8}{section*.9}
+\contentsline {section}{Dimensionality Reduction}{8}{section*.10}
+\contentsline {section}{Support Vector Machines}{8}{section*.11}
+\contentsline {section}{Previous Work}{9}{section*.12}
+\contentsline {chapter}{\numberline {3}Approach}{10}{chapter.3}
+\contentsline {section}{Data Visualisation}{10}{section*.13}
+\contentsline {subsection}{\numberline {3.0.1}Eye tracking overlay}{10}{subsection.3.0.1}
+\contentsline {subsection}{\numberline {3.0.2}Gaze Data Clustering}{11}{subsection.3.0.2}
+\contentsline {section}{Feature Extraction}{13}{section*.14}
+\contentsline {subsection}{\numberline {3.0.3}Definition of a fixation}{13}{subsection.3.0.3}
+\contentsline {subsection}{\numberline {3.0.4}Spatial features}{14}{subsection.3.0.4}
+\contentsline {subsection}{\numberline {3.0.5}Temporal Features}{15}{subsection.3.0.5}
+\contentsline {subsubsection}{Cluster Features}{15}{section*.15}
+\contentsline {subsubsection}{Non-Cluster Features}{15}{section*.16}
