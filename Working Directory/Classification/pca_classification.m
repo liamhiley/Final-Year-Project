@@ -1,41 +1,42 @@
-function [acc] = pca_classification(clip,n)
-%This function loads in a the scores of Principal Component Analysis and
-%uses 15-fold leave-n-out cross-validation with SVM classification to
-%assess the scores as a method of classification between Experts and Lays
+function [acc] = pca_classification(clip)
+%This function loads in  the scores of Principal Component Analysis,fits
+%an SVM model to data, and returns it's estimated accuracy for two class
+%classification
 
 %clip - the clip number that the user wants to evaluate
-%n - what partition to use in leave-n-out cross validation
 
+%   we do not want a training partition of less than 10%
+    rng default
+    
+%   specify rng for reproducibility
+%     rng default;
     load(strcat('ComponentDataClip',int2str(clip),'.mat'));
 %   if the principal components were biased enough for the first 3 to
 %   account for enough of the variance, then there is only one set of
 %   scores to classify
     if exist('full_score','var')
+        
 %       in this case the order of subjects would be preserved
         lbls = [ones(8,1);ones(7,1)*-1];
-%       get all possible combinations for training data that include two
-%       separate groups
-        part = nchoosek(1:15,15-n);
-        bad_pt = zeros(size(part,1),1);
-        for i = 1:size(part,1)
-            if sum(lbls(part(i,:)') == 1) == 0 || sum(lbls(part(i,:)') == -1) == 0
-                bad_pt(i) = 1;
-            end
+        
+%       pad out the data with 92 more "new" observations each
+        exp = full_score(1:8,:); lay = full_score(9:end,:);
+        new_exp = zeros(92,size(full_score,2));
+        new_lay = zeros(92,size(full_score,2));
+        
+        for i = 1:92
+%           choose a random expert and lay observation and generate a point
+%           near to them
+            new_exp(i,:) = mvnrnd(exp(randi(8),:),eye(size(full_score,2)));
+            new_lay(i,:) = mvnrnd(lay(randi(7),:),eye(size(full_score,2)));
         end
-        part(bad_pt==1,:) = [];
-        acc = zeros(size(part,1),1);
-        i = 1;
-        for T = part'
-%           get the complimenting test data
-            t = setdiff([1:15]',T);
-            XT = full_score(T,:);
-            yT = lbls(T);
-            Xt = full_score(t,:);
-            yt = lbls(t);
-            acc(i) = sum(yt==svmclassify(svmtrain(XT,yT),Xt))/size(yt,1);
-            i = i + 1;
-        end
-        acc = mean(acc);
+        
+%       train the svm model
+        svmmdl = fitcsvm(full_score, lbls,'KernelFunction','polynomial', 'KernelScale', 'auto','BoxConstraint',0.01);
+%       cross-validate the model
+        cvmdl = crossval(svmmdl);
+%       obtain the estimated accuracy
+        acc = 1 -  kfoldLoss(cvmdl);
 %   otherwise the score data is fitted into two gaussians to be classified
 %   separately
     else
@@ -50,32 +51,26 @@ function [acc] = pca_classification(clip,n)
                 lbls1(i) = -1;
             end
         end
-%       we do not want a training partition of less than 0
-        if n >= sz1
-            m = max(sz1 - 1,0);
-        else
-            m = n;
+        
+%       pad out the data to 100 observations by interpolating
+        new_sc1 = zeros(100-sz1,size(sc1,2));
+        new_lbls1 = zeros(100-sz1,1);
+        for i = 1:100-sz1
+%           choose a random expert and lay observation and generate a point
+%           near to them
+            subject = randi(sz1);
+            new_lbls1(i) = lbls1(subject);
+            new_sc1(i,:) = mvnrnd(sc1(subject,:),eye(size(sc1,2)));
         end
-        part = nchoosek(1:sz1,sz1-m);
-        bad_pt = zeros(size(part,1),1);
-        for i = 1:size(part,1)
-            if sum(lbls1(part(i,:)') == 1) == 0 || sum(lbls1(part(i,:)') == -1) == 0
-                bad_pt(i) = 1;
-            end
-        end
-        part(bad_pt==1,:) = [];
-%       calculate the accuracies separately
-        acc1 = zeros(size(part,1),1);
-        i = 1;
-        for T = part'
-            t = setdiff(1:sz1,T);
-            XT = sc1(T,:);
-            yT = lbls1(T);
-            Xt = sc1(t,:);
-            yt = lbls1(t);
-            acc1(i) = sum(yt==svmclassify(svmtrain(XT,yT),Xt))/size(yt,1);
-            i = i + 1;
-        end
+%         
+        sc1 = [sc1;new_sc1];
+        lbls1 = [lbls1; new_lbls1];
+%       train the svm model
+        svmmdl1 = fitcsvm(sc1, lbls1,'KernelFunction','polynomial', 'KernelScale', 'auto','BoxConstraint',0.01);
+%       cross-validate the model
+        cvmdl1 = crossval(svmmdl1,'KFold',sz1-1);
+%       obtain the estimated accuracy
+        acc1 = 1 -  kfoldLoss(cvmdl1);
         
 %       for the second gaussian
         sz2 = size(sc2,1);
@@ -87,32 +82,28 @@ function [acc] = pca_classification(clip,n)
                 lbls2(i) = -1;
             end
         end
-        if n >= sz2
-            m = max(sz2 - 1,0);
-        else
-            m = n;
+        
+        %       pad out the data to 100 observations by interpolating
+        new_sc2 = zeros(100-sz2,size(sc2,2));
+        new_lbls2 = zeros(100-sz2,1);
+        for i = 1:100-sz2
+%           choose a random expert and lay observation and generate a point
+%           near to them
+            subject = randi(sz2);
+            new_lbls2(i) = lbls2(subject);
+            new_sc2(i,:) = mvnrnd(sc2(subject,:),eye(size(sc2,2)));
         end
-        part = nchoosek(1:sz2,sz2-m);
-        bad_pt = zeros(size(part,1),1);
-        for i = 1:size(part,1)
-            if sum(lbls2(part(i,:)') == 1) == 0 || sum(lbls2(part(i,:)') == -1) == 0
-                bad_pt(i) = 1;
-            end
-        end
-        part(bad_pt==1,:) = [];
-%       calculate the accuracies separately
-        acc2 = zeros(size(part,1),1);
-        i = 1;
-        for T = part'
-            t = setdiff(1:sz2,T);
-            XT = sc2(T,:);
-            yT = lbls2(T);
-            Xt = sc2(t,:);
-            yt = lbls2(t);
-            acc2(i) = sum(yt==svmclassify(svmtrain(XT,yT),Xt))/size(yt,1);
-            i = i + 1;
-        end
+%         
+        sc2 = [sc2;new_sc2];
+        lbls2 = [lbls2; new_lbls2];
+        
+%       train the svm model
+        svmmdl2 = fitcsvm(sc2, lbls2,'KernelFunction','polynomial', 'KernelScale', 'auto','BoxConstraint',0.01);
+%       cross-validate the model
+        cvmdl2 = crossval(svmmdl2,'KFold',sz2-1);
+%       obtain the estimated accuracy
+        acc2 = 1 -  kfoldLoss(cvmdl2);
+        
         acc = mean([mean(acc1),mean(acc2)]);
     end
 end
-

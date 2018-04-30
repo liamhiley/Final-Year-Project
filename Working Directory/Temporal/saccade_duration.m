@@ -53,8 +53,8 @@ function [] = saccadeDuration(clipno,group)
                 vely = mnGz(gz,2) - mnGz(gz-1,2);                
 %               convert velocity from px/s to deg/s
 %               convert velocity from px/s to deg/s
-%               assuming 6px to 1 degree, given a 75dpi display
-                vel = sqrt(velx^2 + vely^2)/6;
+%               assuming 7px to 1 degree, given a 75dpi display
+                vel = sqrt(velx^2 + vely^2)/7;
 %               if velocity is under 25deg/s and subject
 %               then count it as a potential fixation
                 if vel < 25
