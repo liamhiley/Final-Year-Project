@@ -26,15 +26,15 @@ function [] = featureHeatMap(clipno)
     load(strcat(working,'Temporal/TimeBetweenSaccades/LayClip',int2str(clipno),'TimeBetweenSaccades.mat'));
     lay = [lay zscore(total_time(:,:))];
     load(strcat(working,'Temporal/TimeToInitialSaccade/ExpertClip',int2str(clipno),'InitSaccade.mat'));
-    exp = [exp zscore(init_saccs')];
-    load(strcat(working,'Temporal/TimeToInitialSaccade/LayClip',int2str(clipno),'InitSaccade.mat'));
-    lay = [lay zscore(init_saccs')];
+    exp = [exp zscore(total_time(:,:))];
+    load(strcat(working,'Temporal/TimeToInitialSaccade/LayClip',int2str(clipno),'InitSaccades.mat'));
+    lay = [lay zscore(total_time(:,:))];
 %   the following can only be used with the static images
     if clipno < 7
         load(strcat(working,'Temporal/SaccadesPerCluster/ExpertClip',int2str(clipno),'SaccadesPerCluster.mat'));
-        exp = [exp zscore(sacc_per_cluster(:,:))];
+        exp = zscore(sacc_per_cluster(:,:));
         load(strcat(working,'Temporal/SaccadesPerCluster/LayClip',int2str(clipno),'SaccadesPerCluster.mat'));
-        lay = [lay zscore(sacc_per_cluster(:,:))];
+        lay = zscore(sacc_per_cluster(:,:));
         load(strcat(working,'Spatial/Variance/ExpertClip',int2str(clipno),'Variance.mat'));
         exp = [exp zscore(fix_var(:,:,1)') zscore(fix_var(:,:,2)')];
         load(strcat(working,'Spatial/Variance/LayClip',int2str(clipno),'Variance.mat'));
@@ -55,9 +55,9 @@ function [] = featureHeatMap(clipno)
     yt = [y(1); y(6:8); y(13:end)];
 %   classify experts vs lays using feature i and feature j
     if clipno < 7
-        n_ft = 8*15 + 1;
+        n_ft = 7*15;
     else
-        n_ft = 4*15 + 1;
+        n_ft = 5*15;
     end
     acc = zeros(n_ft,n_ft);
     for i = 1:n_ft
