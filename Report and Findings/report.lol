@@ -1,0 +1,4 @@
+\contentsline {lstlisting}{\numberline {4.1}This code filters out data for the specific clip, using an array of timestamps, and the clip no. taken as an argument. It then scales the resolution down depending on the clip.}{28}{lstlisting.4.1}
+\contentsline {lstlisting}{\numberline {4.2}This code provided the initial data visualisation necessary to disproving the feasibility of using HMMs \ref {datavis}}{29}{lstlisting.4.2}
+\contentsline {lstlisting}{\numberline {4.3}Here, the number of gaussians is increased every iteration until the error of the GM model increases by at least 1}{30}{lstlisting.4.3}
+\contentsline {lstlisting}{\numberline {4.4}Each variable, represented by a column of the data, is used to fit a 1 dimensional SVM, which is then cross validated, and the loss for that model estimated}{31}{lstlisting.4.4}
