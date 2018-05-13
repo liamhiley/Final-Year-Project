@@ -1,9 +1,19 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces A surgical equipment tray, with spillage under the needle}}{11}{figure.2.1}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces A surgical equipment tray, with spillage under the needle}}{15}{figure.2.1}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces The first clip from the video, with the left (red), right (blue) and centre(black) gaze points of an expert}}{13}{figure.3.1}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Here the eye tracking data for all experts as they viewed the 3\textsuperscript {rd} clip is clustered using GMMs}}{14}{figure.3.2}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Poor clustering in the clip 7 due to objects moving along the screen}}{16}{figure.3.3}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces A side-by-side comparison of the clustering of expert (right) and lay (left) data shows that expert clusters span much more of the screen and demarcate well defined regions within the scene, whereas lays only cover one half of the screen}}{18}{figure.3.4}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces The first clip from the video, with the left (red), right (blue) and centre(black) gaze points of an expert}}{18}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Here the eye tracking data for all experts as they viewed the 3\textsuperscript {rd} clip is clustered using GMMs}}{19}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Poor clustering in the clip 7 due to objects moving along the screen}}{21}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces A side-by-side comparison of the clustering of expert (right) and lay (left) data shows that expert clusters span much more of the screen and demarcate well defined regions within the scene, whereas lays only cover one half of the screen}}{23}{figure.3.4}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces The mathematical formulas associated with the 3 distance measures used by t-SNE in this project}}{28}{figure.3.5}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces The clustering here is for Experts whilst viewing the 2\textsuperscript {nd} clip. The gaze data defines isolated areas in the image well.}}{42}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces A side-by-side comparison of two experts accelerations to clusters demonstrates that the feature does not distinguish subjects as expert or non-expert}}{43}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Total distance travelled for an average expert vs non-expert shows that an experts gaze on average travels further than that of a non-expert}}{43}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces The only representation in which the groups are clearly separated for clip 1 in 3 dimensions is Chebychev distance}}{44}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces For experts in clip 5, the explained variability of each principle component after PCA (left) vs. the explained variability of either of two Gaussians. The cut-off is generally set at 70\%, making PCA effective only after splitting the data.}}{45}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces The results for 2-variable classification is overall positive for clip 5 (left), with a large population of medium-dark blue (60-100\% accuracy). Clip 10 (right) shows that many combinations result in approximately random chance, but some obtain a better more acceptable result.}}{46}{figure.5.6}
+\addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.3.8)  3 MAY 2018 16:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.3.8)  11 MAY 2018 21:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -298,6 +298,18 @@ LaTeX Info: Redefining \] on input line 2818.
 Package: filecontents 2011/10/08 v1.3 Create an external file from within a LaT
 eX document
 )
+(/usr/local/texlive/2017/texmf-dist/tex/latex/soul/soul.sty
+Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+\SOUL@word=\toks20
+\SOUL@lasttoken=\toks21
+\SOUL@cmds=\toks22
+\SOUL@buffer=\toks23
+\SOUL@token=\toks24
+\SOUL@spaceskip=\skip60
+\SOUL@ttwidth=\dimen127
+\SOUL@uldp=\dimen128
+\SOUL@ulht=\dimen129
+)
 (/usr/local/texlive/2017/texmf-dist/tex/latex/matlab-prettifier/matlab-prettifi
 er.sty
 Package: matlab-prettifier 2014/06/19 v0.3 A package for prettyprinting Matlab 
@@ -404,16 +416,16 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count123
 \lst@gtempboxa=\box54
-\lst@token=\toks20
+\lst@token=\toks25
 \lst@length=\count124
-\lst@currlwidth=\dimen127
+\lst@currlwidth=\dimen130
 \lst@column=\count125
 \lst@pos=\count126
-\lst@lostspace=\dimen128
-\lst@width=\dimen129
+\lst@lostspace=\dimen131
+\lst@width=\dimen132
 \lst@newlines=\count127
 \lst@lineno=\count128
-\lst@maxwidth=\dimen130
+\lst@maxwidth=\dimen133
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
@@ -428,12 +440,12 @@ Package: listings 2015/06/04 1.6 (Carsten Heinz)
 \netBracketCount@mlpr=\count131
 \blkLvl@mlpr=\count132
 \blkLvlAtClassdef@mlpr=\count133
-\emHeight@mlpr=\skip60
-\jayDepth@mlpr=\skip61
-\sectionRuleOffset@mlpr=\skip62
-\toks@mlpr=\toks21
+\emHeight@mlpr=\skip61
+\jayDepth@mlpr=\skip62
+\sectionRuleOffset@mlpr=\skip63
+\toks@mlpr=\toks26
 )
-Package Listings Info: Made " a short reference for \lstinline on input line 14
+Package Listings Info: Made " a short reference for \lstinline on input line 15
 .
 
 
@@ -463,32 +475,56 @@ LaTeX Warning: Overwriting file `./singleft.m'.
 \openout15 = `singleft.m'.
 
 
+
+LaTeX Warning: Overwriting file `./pairwise.m'.
+
+\openout15 = `pairwise.m'.
+
+
+
+LaTeX Warning: Overwriting file `./sfs.m'.
+
+\openout15 = `sfs.m'.
+
+
+
+LaTeX Warning: Overwriting file `./pcaclassification.m'.
+
+\openout15 = `pcaclassification.m'.
+
+
+
+LaTeX Warning: Overwriting file `./splitpca.m'.
+
+\openout15 = `splitpca.m'.
+
+
 (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 111.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 183.
+LaTeX Font Info:    ... okay on input line 183.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 183.
+LaTeX Font Info:    ... okay on input line 183.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 183.
+LaTeX Font Info:    ... okay on input line 183.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 183.
+LaTeX Font Info:    ... okay on input line 183.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 183.
+LaTeX Font Info:    ... okay on input line 183.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 183.
+LaTeX Font Info:    ... okay on input line 183.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 183.
+LaTeX Font Info:    ... okay on input line 183.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 183.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 183.
 
  (/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    ... okay on input line 183.
 \AtBeginShipoutBox=\box56
-Package hyperref Info: Link coloring OFF on input line 111.
+Package hyperref Info: Link coloring OFF on input line 183.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -498,9 +534,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count134
 )
-LaTeX Info: Redefining \ref on input line 111.
-LaTeX Info: Redefining \pageref on input line 111.
-LaTeX Info: Redefining \nameref on input line 111.
+LaTeX Info: Redefining \ref on input line 183.
+LaTeX Info: Redefining \pageref on input line 183.
+LaTeX Info: Redefining \nameref on input line 183.
 
 (./report.out) (./report.out)
 \@outlinefile=\write3
@@ -510,16 +546,16 @@ LaTeX Info: Redefining \nameref on input line 111.
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count135
-\scratchdimen=\dimen131
+\scratchdimen=\dimen134
 \scratchbox=\box57
 \nofMPsegments=\count136
 \nofMParguments=\count137
-\everyMPshowfont=\toks22
+\everyMPshowfont=\toks27
 \MPscratchCnt=\count138
-\MPscratchDim=\dimen132
+\MPscratchDim=\dimen135
 \MPnumerator=\count139
 \makeMPintoPDFobject=\count140
-\everyMPtoPDFconversion=\toks23
+\everyMPtoPDFconversion=\toks28
 ) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -539,10 +575,10 @@ e
 ))
 \c@lstlisting=\count141
 
-<cardiffuni.png, id=156, 229.85875pt x 220.825pt>
+<cardiffuni.png, id=228, 229.85875pt x 220.825pt>
 File: cardiffuni.png Graphic file (type png)
  <use cardiffuni.png>
-Package pdftex.def Info: cardiffuni.png used on input line 115.
+Package pdftex.def Info: cardiffuni.png used on input line 187.
 (pdftex.def)             Requested size: 85.35826pt x 82.00385pt.
 
 
@@ -558,7 +594,7 @@ ffuni.png>]pdfTeX warning (ext4): destination with the same identifier (name{pa
 ge.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.130 	\newpage
+l.205 	\newpage
                { [1] (./report.toc [2
 
 ])
@@ -571,87 +607,104 @@ l.130 	\newpage
 
  [4
 
+] [5]
+(./report.lot)
+\tf@lot=\write6
+\openout6 = `report.lot'.
+
+ [6
+
 ] (./report.lol)
-\tf@lol=\write6
-\openout6 = `report.lol'.
+\tf@lol=\write7
+\openout7 = `report.lol'.
 
-
-[5
+ [7
 
 ]
 Chapter 1.
-[6
-
-] [7]
-Chapter 2.
 [8
 
-] [9] <clip1.jpg, id=287, 1501.61pt x 853.1875pt>
+] [9] [10]
+Chapter 2.
+[11
+
+] [12]
+Overfull \hbox (5.057pt too wide) in paragraph at lines 264--265
+\OT1/cmr/m/n/12 men-sional data set to a lower di-men-sion-al-ity via a se-ries
+ of transformations[[]]. 
+ []
+
+[13] <clip1.jpg, id=486, 1501.61pt x 853.1875pt>
 File: clip1.jpg Graphic file (type jpg)
  <use clip1.jpg>
-Package pdftex.def Info: clip1.jpg used on input line 187.
+Package pdftex.def Info: clip1.jpg used on input line 280.
 (pdftex.def)             Requested size: 284.52756pt x 161.66467pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[10] [11 <./clip1.jpg>]
+[14] [15 <./clip1.jpg>]
 Chapter 3.
-[12
+[16
 
-] <eyeoverlay.png, id=302, 601.24625pt x 397.485pt>
+] [17] <eyeoverlay.png, id=513, 601.24625pt x 397.485pt>
 File: eyeoverlay.png Graphic file (type png)
- <use eyeoverlay.png>
-Package pdftex.def Info: eyeoverlay.png used on input line 227.
+
+<use eyeoverlay.png>
+Package pdftex.def Info: eyeoverlay.png used on input line 325.
 (pdftex.def)             Requested size: 227.62204pt x 150.48181pt.
-
-[13 <./eyeoverlay.png>] <expertcluster.jpg, id=310, 1838.87pt x 1044.90375pt>
+ [18 <./eyeoverlay.png>]
+<expertcluster.jpg, id=524, 1838.87pt x 1044.90375pt>
 File: expertcluster.jpg Graphic file (type jpg)
-
-<use expertcluster.jpg>
-Package pdftex.def Info: expertcluster.jpg used on input line 236.
+ <use expertcluster.jpg>
+Package pdftex.def Info: expertcluster.jpg used on input line 334.
 (pdftex.def)             Requested size: 284.52756pt x 161.67142pt.
- [14 <./expertcluster.jpg>]
-<videocluster.jpg, id=317, 978.65625pt x 637.38126pt>
+
+[19 <./expertcluster.jpg>]
+<videocluster.jpg, id=536, 978.65625pt x 637.38126pt>
 File: videocluster.jpg Graphic file (type jpg)
  <use videocluster.jpg>
-Package pdftex.def Info: videocluster.jpg used on input line 248.
+Package pdftex.def Info: videocluster.jpg used on input line 346.
 (pdftex.def)             Requested size: 284.52756pt x 185.31238pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[15] [16 <./videocluster.jpg>]
-Overfull \hbox (1.1428pt too wide) in paragraph at lines 269--270
+[20] [21 <./videocluster.jpg>]
+Overfull \hbox (1.1428pt too wide) in paragraph at lines 367--368
 []\OT1/cmr/m/n/12 The sec-ond step was to cal-cu-late move-ments un-der 25$[]$/
 s. Us-ing trigonom-
  []
 
-[17] <clustercomparison.png, id=345, 1352.05125pt x 387.4475pt>
+[22] <clustercomparison.png, id=559, 1352.05125pt x 387.4475pt>
 File: clustercomparison.png Graphic file (type png)
 
 <use clustercomparison.png>
-Package pdftex.def Info: clustercomparison.png used on input line 278.
+Package pdftex.def Info: clustercomparison.png used on input line 376.
 (pdftex.def)             Requested size: 341.43306pt x 97.84302pt.
- [18 <./clustercomparison.png>] [19]
-Underfull \hbox (badness 10000) in paragraph at lines 310--314
+ [23 <./clustercomparison.png>] [24]
+Underfull \hbox (badness 10000) in paragraph at lines 409--413
 
  []
 
-[20] [21] [22] [23] [24]
+[25] [26]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[27] [28] [29] [30] [31]
 Chapter 4.
-[25
+[32
 
-] [26] [27]
+] [33] [34]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 375.
-LaTeX Font Info:    Try loading font information for OT1+fvm on input line 375.
+nput line 500.
+LaTeX Font Info:    Try loading font information for OT1+fvm on input line 500.
 
-LaTeX Font Info:    No file OT1fvm.fd. on input line 375.
+LaTeX Font Info:    No file OT1fvm.fd. on input line 500.
 
 
 LaTeX Font Warning: Font shape `OT1/fvm/m/n' undefined
-(Font)              using `OT1/cmr/m/n' instead on input line 375.
+(Font)              using `OT1/cmr/m/n' instead on input line 500.
 
 (./scaledata.m
 LaTeX Font Info:    Try loading font information for TS1+fvm on input line 2.
@@ -659,7 +712,7 @@ LaTeX Font Info:    Try loading font information for TS1+fvm on input line 2.
 File: ts1fvm.fd 2004/09/07 scalable font definitions for TS1/fvm.
 )
 LaTeX Font Info:    Font shape `TS1/fvm/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 2.
+(Font)              scaled to size 6.80005pt on input line 2.
 LaTeX Font Info:    Try loading font information for OML+fvm on input line 4.
 LaTeX Font Info:    No file OMLfvm.fd. on input line 4.
 
@@ -668,65 +721,139 @@ LaTeX Font Warning: Font shape `OML/fvm/m/n' undefined
 (Font)              using `OML/cmm/m/it' instead
 (Font)              for symbol `textgreater' on input line 4.
 
-) [28] (./overlay.m) [29] (./elbowmethod.m) [30] (./singleft.m) [31]
-Missing character: There is no ñ in font cmr12!
-Missing character: There is no í in font cmr12!
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 444.
- [32
+) [35] (./overlay.m) [36] (./elbowmethod.m) [37] (./splitpca.m) [38]
+(./singleft.m) (./pairwise.m) [39] (./sfs.m) (./pcaclassification.m) [40]
+Chapter 5.
+[41
+
+] <goodcluster.jpg, id=815, 1838.87pt x 1044.90375pt>
+File: goodcluster.jpg Graphic file (type jpg)
+ <use goodcluster.jpg>
+Package pdftex.def Info: goodcluster.jpg used on input line 534.
+(pdftex.def)             Requested size: 227.62204pt x 129.33713pt.
+
+[42 <./goodcluster.jpg>] <acceleration.png, id=822, 1445.4pt x 367.3725pt>
+File: acceleration.png Graphic file (type png)
+
+<use acceleration.png>
+Package pdftex.def Info: acceleration.png used on input line 543.
+(pdftex.def)             Requested size: 426.79134pt x 108.47484pt.
+
+Overfull \hbox (36.79134pt too wide) in paragraph at lines 543--545
+ [][] 
+ []
+
+<distanceplot.png, id=824, 562.2606pt x 421.575pt>
+File: distanceplot.png Graphic file (type png)
+ <use distanceplot.png>
+Package pdftex.def Info: distanceplot.png used on input line 549.
+(pdftex.def)             Requested size: 227.62204pt x 170.66617pt.
+
+<tsne.png, id=825, 523.9575pt x 408.52625pt>
+File: tsne.png Graphic file (type png)
+ <use tsne.png>
+Package pdftex.def Info: tsne.png used on input line 555.
+(pdftex.def)             Requested size: 227.62204pt x 177.4706pt.
+ [43 <./acceleration.png> <./distanceplot.png (PNG copy)>]
+<splitpca.png, id=833, 1445.4pt x 542.025pt>
+File: splitpca.png Graphic file (type png)
+ <use splitpca.png>
+Package pdftex.def Info: splitpca.png used on input line 563.
+(pdftex.def)             Requested size: 284.52756pt x 106.69933pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[44 <./tsne.png>] [45 <./splitpca.png>]
+<pairwise.png, id=846, 1348.03625pt x 508.90125pt>
+File: pairwise.png Graphic file (type png)
+ <use pairwise.png>
+Package pdftex.def Info: pairwise.png used on input line 580.
+(pdftex.def)             Requested size: 341.43306pt x 128.89452pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[46 <./pairwise.png>] [47] [48]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[49] [50] [51]
+
+LaTeX Warning: Reference `results:single' on page 52 undefined on input line 77
+3.
+
+[52] [53]
+Chapter 6.
+[54
+
+] [55]
+Chapter 7.
+[56
+
+] [57] [58
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 444.
-
-(./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 444.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 444.
+Missing character: There is no ö in font cmr12!
+ [59]
+Missing character: There is no ñ in font cmr12!
+Missing character: There is no í in font cmr12!
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 915.
+ [60]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 915.
+ (./report.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 915.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 915.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 933B04BA0542E2E36193AAB589DE2FF7;2567.
+(rerunfilecheck)             Checksum: DDE60516CFA84A9978E32786E3E71FE3;3791.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 444.
- )
-(\end occurred inside a group at level 1)
 
-### simple group (level 1) entered at line 130 ({)
-### bottom level 
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 915.
+ ) 
 Here is how much of TeX's memory you used:
- 8728 strings out of 492995
- 126283 string characters out of 6132705
- 335437 words of memory out of 5000000
- 11978 multiletter control sequences out of 15000+600000
- 11777 words of font info for 42 fonts, out of 8000000 for 9000
+ 9220 strings out of 492995
+ 133057 string characters out of 6132705
+ 355271 words of memory out of 5000000
+ 12299 multiletter control sequences out of 15000+600000
+ 13020 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,11n,54p,1937b,1339s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Hfootnote.2} has been referenced bu
-t does not exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
-, replaced by a fixed one
+ 34i,13n,54p,1187b,1300s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
+st, replaced by a fixed one
 
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/tex
 live/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texl
 ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texli
-ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texliv
-e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/
-2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/20
-17/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2017/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2017/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2017/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2017/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2017/texmf-dist/fon
-ts/type1/public/bera/fvmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
-/public/cm-super/sfrm1200.pfb>
-Output written on report.pdf (33 pages, 5276541 bytes).
+ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive
+/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2
+017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/201
+7/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2017/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2017/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2017/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-dist/font
+s/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2017/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
+/public/bera/fvmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
+cm-super/sfrm1200.pfb>
+Output written on report.pdf (61 pages, 8649391 bytes).
 PDF statistics:
- 607 PDF objects out of 1000 (max. 8388607)
- 541 compressed objects within 6 object streams
- 185 named destinations out of 1000 (max. 500000)
- 335 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1070 PDF objects out of 1200 (max. 8388607)
+ 958 compressed objects within 10 object streams
+ 329 named destinations out of 1000 (max. 500000)
+ 509 words of extra memory for PDF output out of 10000 (max. 10000000)
 

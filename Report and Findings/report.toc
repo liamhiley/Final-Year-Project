@@ -1,48 +1,71 @@
 \setcounter {tocdepth}{0}
 \setcounter {tocdepth}{2}
-\contentsline {chapter}{\numberline {1}Introduction}{6}{chapter.1}
-\contentsline {section}{\numberline {1.1}Motivation}{6}{section.1.1}
-\contentsline {section}{\numberline {1.2}Project aims}{7}{section.1.2}
-\contentsline {chapter}{\numberline {2}Background}{8}{chapter.2}
-\contentsline {section}{\numberline {2.1}The science of eye tracking}{8}{section.2.1}
-\contentsline {section}{\numberline {2.2}Data Processing and Analysis}{9}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Clustering}{9}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Dimensionality Reduction}{9}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}Support Vector Machines}{10}{subsection.2.2.3}
-\contentsline {section}{\numberline {2.3}Previous Work}{10}{section.2.3}
-\contentsline {chapter}{\numberline {3}Approach}{12}{chapter.3}
-\contentsline {section}{\numberline {3.1}Data Preprocessing}{12}{section.3.1}
-\contentsline {section}{\numberline {3.2}Data Visualisation}{13}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Eye tracking overlay}{13}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Gaze Data Clustering}{14}{subsection.3.2.2}
-\contentsline {section}{\numberline {3.3}Feature Extraction}{16}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Definition of a fixation}{17}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Assigning clusters}{18}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Spatial features}{18}{subsection.3.3.3}
-\contentsline {subsection}{\numberline {3.3.4}Temporal Features}{19}{subsection.3.3.4}
-\contentsline {subsubsection}{Cluster Features}{19}{section*.6}
-\contentsline {subsubsection}{Non-Cluster Features}{20}{section*.7}
-\contentsline {section}{\numberline {3.4}Dimensionality Reduction}{21}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}t-SNE}{21}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}PCA}{21}{subsection.3.4.2}
-\contentsline {section}{\numberline {3.5}Classification}{22}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Single-variable and pairwise classification}{23}{subsection.3.5.1}
-\contentsline {subsection}{\numberline {3.5.2}Sequential Forward Selection}{23}{subsection.3.5.2}
-\contentsline {subsection}{\numberline {3.5.3}Classification in Principal Component space}{23}{subsection.3.5.3}
-\contentsline {subsection}{\numberline {3.5.4}Fine tuning parameters}{23}{subsection.3.5.4}
-\contentsline {chapter}{\numberline {4}Implementation}{25}{chapter.4}
-\contentsline {section}{\numberline {4.1}Environment}{25}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}MATLAB}{25}{subsection.4.1.1}
-\contentsline {section}{\numberline {4.2}Toolboxes and Libraries}{26}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Statistics and Machine Learning Toolbox}{26}{subsection.4.2.1}
-\contentsline {subsubsection}{Clustering}{26}{section*.8}
-\contentsline {subsubsection}{Dimensionality Reduction}{26}{section*.9}
-\contentsline {subsubsection}{Classification}{27}{section*.10}
-\contentsline {subsection}{\numberline {4.2.2}NETLAB}{27}{subsection.4.2.2}
-\contentsline {section}{\numberline {4.3}Algorithms}{27}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Data Preprocessing}{27}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Data Visualisation}{28}{subsection.4.3.2}
-\contentsline {subsubsection}{Overlay}{28}{section*.11}
-\contentsline {subsubsection}{Clustering}{30}{section*.12}
-\contentsline {subsection}{\numberline {4.3.3}Classification}{30}{subsection.4.3.3}
-\contentsline {subsubsection}{Classification on a single variable}{30}{section*.13}
+\contentsline {chapter}{\numberline {1}Introduction}{8}{chapter.1}
+\contentsline {section}{\numberline {1.1}Motivation}{8}{section.1.1}
+\contentsline {section}{\numberline {1.2}Project aims}{9}{section.1.2}
+\contentsline {section}{\numberline {1.3}Project Structure}{10}{section.1.3}
+\contentsline {chapter}{\numberline {2}Background}{11}{chapter.2}
+\contentsline {section}{\numberline {2.1}The science of eye tracking}{11}{section.2.1}
+\contentsline {section}{\numberline {2.2}Data Processing and Analysis}{12}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Clustering}{13}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Dimensionality Reduction}{13}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Support Vector Machines}{13}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Previous Work}{14}{section.2.3}
+\contentsline {chapter}{\numberline {3}Approach}{16}{chapter.3}
+\contentsline {section}{\numberline {3.1}Quality of the data, and it's effect on results}{16}{section.3.1}
+\contentsline {section}{\numberline {3.2}Data Preprocessing}{17}{section.3.2}
+\contentsline {section}{\numberline {3.3}Exploratory Data Analysis}{18}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Eye tracking overlay}{18}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Gaze Data Clustering}{19}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Feature Extraction}{21}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Definition of a fixation}{22}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Assigning clusters}{23}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Spatial features}{24}{subsection.3.4.3}
+\contentsline {subsection}{\numberline {3.4.4}Temporal Features}{24}{subsection.3.4.4}
+\contentsline {subsubsection}{Cluster Features}{25}{section*.7}
+\contentsline {subsubsection}{Non-Cluster Features}{25}{section*.8}
+\contentsline {section}{\numberline {3.5}Dimensionality Reduction}{27}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}t-SNE}{27}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}PCA}{28}{subsection.3.5.2}
+\contentsline {section}{\numberline {3.6}Classification}{29}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Single-variable and pairwise classification}{30}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Sequential Forward Selection}{30}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Classification in Principal Component space}{30}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {3.6.4}Configuring hyperparameters}{31}{subsection.3.6.4}
+\contentsline {chapter}{\numberline {4}Implementation}{32}{chapter.4}
+\contentsline {section}{\numberline {4.1}Environment}{32}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}MATLAB}{32}{subsection.4.1.1}
+\contentsline {section}{\numberline {4.2}Toolboxes and Libraries}{33}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Statistics and Machine Learning Toolbox}{33}{subsection.4.2.1}
+\contentsline {subsubsection}{Clustering}{33}{section*.9}
+\contentsline {subsubsection}{Dimensionality Reduction}{33}{section*.10}
+\contentsline {subsubsection}{Classification}{34}{section*.11}
+\contentsline {subsection}{\numberline {4.2.2}NETLAB}{34}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Algorithms}{35}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Data Preprocessing}{35}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Data Analysis}{36}{subsection.4.3.2}
+\contentsline {subsubsection}{Overlay}{36}{section*.12}
+\contentsline {subsubsection}{Clustering}{37}{section*.13}
+\contentsline {subsection}{\numberline {4.3.3}Dimensionality Reduction}{38}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Classification}{38}{subsection.4.3.4}
+\contentsline {subsubsection}{Classification on a single variable}{38}{section*.14}
+\contentsline {subsubsection}{Variable pair classification}{39}{section*.15}
+\contentsline {subsubsection}{Sequential Forwards Selection}{40}{section*.16}
+\contentsline {subsubsection}{Classification in PC space}{40}{section*.17}
+\contentsline {chapter}{\numberline {5}Results}{41}{chapter.5}
+\contentsline {section}{\numberline {5.1}Clustering}{42}{section.5.1}
+\contentsline {section}{\numberline {5.2}Feature Extraction}{43}{section.5.2}
+\contentsline {section}{\numberline {5.3}Dimensionality Reduction}{44}{section.5.3}
+\contentsline {section}{\numberline {5.4}Classification}{45}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Single variable classification}{45}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Pairwise classification}{46}{subsection.5.4.2}
+\contentsline {subsection}{\numberline {5.4.3}Sequential forward selection}{46}{subsection.5.4.3}
+\contentsline {subsection}{\numberline {5.4.4}Classification in PCA space}{48}{subsection.5.4.4}
+\contentsline {subsection}{\numberline {5.4.5}Configuring SVM hyperparameters}{49}{subsection.5.4.5}
+\contentsline {subsubsection}{Kernel function}{49}{section*.18}
+\contentsline {subsubsection}{Box Constraint}{49}{section*.19}
+\contentsline {section}{\numberline {5.5}Results evaluation}{50}{section.5.5}
+\contentsline {chapter}{\numberline {6}Conclusion}{54}{chapter.6}
+\contentsline {section}{\numberline {6.1}Reflection on Learning}{55}{section.6.1}
+\contentsline {chapter}{\numberline {7}Future Work}{56}{chapter.7}
+\contentsline {chapter}{Bibliography}{57}{chapter.7}
