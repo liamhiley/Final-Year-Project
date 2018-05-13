@@ -1,9 +1,0 @@
-
-Error is 18031.7282220131 for Expert 1
-Error is 40499.0983065557 for Expert 2
-Error is 150902.4427732852 for Expert 3
-Error is 14432.4814290370 for Expert 4
-Error is 30347.2521735338 for Expert 5
-Error is 55854.5869333532 for Expert 6
-Error is 20576.8062374310 for Expert 7
-Error is 21885.6116979581 for Expert 8
